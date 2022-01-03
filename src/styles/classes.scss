@@ -1,0 +1,25 @@
+.h-full {
+  height: 100%;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.white {
+  background-color: #ffffff;
+}
+
+.white--text {
+  color: #ffffff;
+}

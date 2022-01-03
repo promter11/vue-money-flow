@@ -1,0 +1,7 @@
+@mixin generate($prefix, $property) {
+  @for $i from 0 through 20 {
+    .#{$prefix}-#{$i} {
+      #{$property}: 4px * $i;
+    }
+  }
+}

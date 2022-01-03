@@ -1,30 +1,29 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view />
+  <a-layout class="h-screen">
+    <the-sidebar />
+    <a-layout>
+      <the-header />
+      <a-layout-content class="m-4 p-4 white">
+        <router-view />
+      </a-layout-content>
+      <the-footer />
+    </a-layout>
+  </a-layout>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import { Options, Vue } from "vue-class-component";
 
-#nav {
-  padding: 30px;
+import TheFooter from "@/components/TheFooter.vue";
+import TheHeader from "@/components/TheHeader.vue";
+import TheSidebar from "@/components/TheSidebar.vue";
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+@Options({
+  components: {
+    TheFooter,
+    TheHeader,
+    TheSidebar,
+  },
+})
+export default class App extends Vue {}
+</script>
