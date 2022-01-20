@@ -1,8 +1,8 @@
 <template>
   <a-layout-sider collapsible>
     <h3 class="p-4 text-ellipsis white--text">Money Flow</h3>
-    <a-menu mode="inline" theme="dark">
-      <a-menu-item v-for="{ to, text, icon } in menu" :key="text">
+    <a-menu v-model:selectedKeys="selected" mode="inline" theme="dark">
+      <a-menu-item v-for="{ id, to, text, icon } in menu" :key="id">
         <router-link :to="to">
           <component :is="icon" />
           <span>{{ text }}</span>
@@ -25,9 +25,25 @@ import { Options, Vue } from "vue-class-component";
 })
 export default class TheSidebar extends Vue {
   menu = [
-    { to: "/accounts", text: "Счета", icon: CreditCardOutlined },
-    { to: "/categories", text: "Категории", icon: PieChartOutlined },
-    { to: "/operations", text: "Операции", icon: ProfileOutlined },
+    {
+      icon: CreditCardOutlined,
+      id: "accounts",
+      text: "Счета",
+      to: "/accounts",
+    },
+    {
+      icon: PieChartOutlined,
+      id: "categories",
+      text: "Категории",
+      to: "/categories",
+    },
+    {
+      icon: ProfileOutlined,
+      id: "operations",
+      text: "Операции",
+      to: "/operations",
+    },
   ];
+  selected = ["accounts"];
 }
 </script>

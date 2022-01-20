@@ -10,7 +10,7 @@ module.exports = {
     "@vue/prettier",
     "@vue/prettier/@typescript-eslint",
   ],
-  plugins: ["simple-import-sort"],
+  plugins: ["sort-keys-fix", "typescript-sort-keys", "simple-import-sort"],
   parserOptions: {
     ecmaVersion: 2020,
   },
@@ -20,6 +20,9 @@ module.exports = {
     "vue/attributes-order": ["error", { alphabetical: false }],
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
+    "sort-keys-fix/sort-keys-fix": "error",
+    "typescript-sort-keys/interface": "error",
+    "typescript-sort-keys/string-enum": "error",
   },
   overrides: [
     {

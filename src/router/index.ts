@@ -1,16 +1,22 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
 import PageNotFound from "@/components/PageNotFound.vue";
+import Accounts from "@/views/Accounts.vue";
 
-const routes: Array<RouteRecordRaw> = [
+const routes: RouteRecordRaw[] = [
   {
     path: "/",
     redirect: "/accounts",
   },
   {
-    path: "/:pathMatch(.*)*",
-    name: "Not Found",
+    component: Accounts,
+    name: "Accounts",
+    path: "/accounts",
+  },
+  {
     component: PageNotFound,
+    name: "Not Found",
+    path: "/:pathMatch(.*)*",
   },
 ];
 
