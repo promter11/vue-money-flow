@@ -1,4 +1,4 @@
-export type AccountDialog = "upsert" | "remove";
+export type Account = "accounts" | "savings" | "debts" | "finances";
 
 export interface IAccount {
   balance: number;

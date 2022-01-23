@@ -1,14 +1,14 @@
 <template>
   <a-modal
     title="Новый счёт"
-    okText="Добавить"
-    cancelText="Отмена"
+    ok-text="Добавить"
+    cancel-text="Отмена"
     :visible="dialog"
     @ok="handleDialog({ upsert: false })"
     @cancel="handleDialog({ upsert: false })"
   >
     <a-form
-      name="create-form"
+      name="upsert-form"
       :model="form"
       :label-col="{ span: 6 }"
       :wrapper-col="{ span: 18 }"
@@ -37,15 +37,16 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import { Emit, Prop } from "vue-property-decorator";
+import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 
-import { AccountDialog, IAccountType, ICurrency } from "@/interfaces";
+import { Dialog, IAccountType, ICurrency } from "@/interfaces";
 
-@Options({})
+@Options({
+  name: "UpsertAccount",
+})
 export default class UpsertAccount extends Vue {
   @Emit()
-  private handleDialog(dialogs: Partial<Record<AccountDialog, boolean>>) {
+  private handleDialog(dialogs: Partial<Record<Dialog, boolean>>) {
     return dialogs;
   }
 

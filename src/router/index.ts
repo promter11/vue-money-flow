@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
 import PageNotFound from "@/components/PageNotFound.vue";
 import Accounts from "@/views/Accounts.vue";
+import Categories from "@/views/Categories.vue";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -12,6 +13,11 @@ const routes: RouteRecordRaw[] = [
     component: Accounts,
     name: "Accounts",
     path: "/accounts",
+  },
+  {
+    component: Categories,
+    name: "Categories",
+    path: "/categories",
   },
   {
     component: PageNotFound,

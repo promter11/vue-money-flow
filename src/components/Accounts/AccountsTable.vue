@@ -26,13 +26,14 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import { Prop } from "vue-property-decorator";
+import { Options, Prop, Vue } from "vue-property-decorator";
 
 import { IAccountData } from "@/interfaces";
 
-@Options({})
-export default class AccountTable extends Vue {
+@Options({
+  name: "AccountsTable",
+})
+export default class AccountsTable extends Vue {
   @Prop({ required: true }) items!: IAccountData["finances"];
 
   columns = [

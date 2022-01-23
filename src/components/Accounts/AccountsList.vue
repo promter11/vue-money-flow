@@ -53,17 +53,17 @@ import {
   EditOutlined,
   PlusOutlined,
 } from "@ant-design/icons-vue";
-import { Options, Vue } from "vue-class-component";
-import { Emit, Prop } from "vue-property-decorator";
+import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 
-import { AccountDialog, IAccount, ICurrency } from "@/interfaces";
+import { Dialog, IAccount, ICurrency } from "@/interfaces";
 
 @Options({
   components: { DeleteOutlined, EditOutlined, PlusOutlined },
+  name: "AccountsList",
 })
-export default class AccountList extends Vue {
+export default class AccountsList extends Vue {
   @Emit()
-  private handleDialog(dialogs: Partial<Record<AccountDialog, boolean>>) {
+  private handleDialog(dialogs: Partial<Record<Dialog, boolean>>) {
     return dialogs;
   }
 

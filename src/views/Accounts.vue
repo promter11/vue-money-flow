@@ -14,17 +14,12 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { Options, Vue } from "vue-property-decorator";
 
 import AccountsTabs from "@/components/Accounts/AccountsTabs.vue";
 import RemoveAccount from "@/components/Accounts/Dialogs/Remove.vue";
 import UpsertAccount from "@/components/Accounts/Dialogs/Upsert.vue";
-import {
-  AccountDialog,
-  IAccountData,
-  IAccountType,
-  ICurrency,
-} from "@/interfaces";
+import { Dialog, IAccountData, IAccountType, ICurrency } from "@/interfaces";
 import AccountsService from "@/services/AccountsService";
 
 @Options({
@@ -38,6 +33,7 @@ import AccountsService from "@/services/AccountsService";
     this.items = await AccountsService.getAccountsData();
     this.currencies = await AccountsService.getCurrencies();
   },
+  name: "Accounts",
 })
 export default class Accounts extends Vue {
   items: IAccountData = {
@@ -53,13 +49,13 @@ export default class Accounts extends Vue {
     savings: [],
   };
   types: IAccountType[] = [];
-  dialogs: Record<AccountDialog, boolean> = {
+  dialogs: Record<Dialog, boolean> = {
     remove: false,
     upsert: false,
   };
   currencies: ICurrency[] = [];
 
-  private handleDialog(dialogs: Partial<Record<AccountDialog, boolean>>) {
+  private handleDialog(dialogs: Partial<Record<Dialog, boolean>>) {
     this.dialogs = { ...this.dialogs, ...dialogs };
   }
 }

@@ -5,8 +5,10 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { Options, Vue } from "vue-property-decorator";
 
-@Options({})
+@Options({
+  name: "TheFooter",
+})
 export default class TheFooter extends Vue {}
 </script>

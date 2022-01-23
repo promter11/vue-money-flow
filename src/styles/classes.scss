@@ -10,6 +10,14 @@
   height: 100vh;
 }
 
+.block {
+  display: block;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
 .text-center {
   text-align: center;
 }
@@ -18,6 +26,10 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
 }
 
 .white {

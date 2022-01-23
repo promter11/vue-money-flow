@@ -13,8 +13,10 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { Options, Vue } from "vue-property-decorator";
 
-@Options({})
+@Options({
+  name: "PageNotFound",
+})
 export default class PageNotFound extends Vue {}
 </script>
