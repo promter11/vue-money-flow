@@ -5,4 +5,11 @@ module.exports = {
       return args;
     });
   },
+  css: {
+    loaderOptions: {
+      scss: {
+        prependData: `@import "~@/styles/variables.scss";`,
+      },
+    },
+  },
 };

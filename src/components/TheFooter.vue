@@ -1,6 +1,8 @@
 <template>
   <a-layout-footer class="white text-center">
-    © Copyright 2022 Money Flow. Все права защищены.
+    <a-typography-text>
+      © Copyright 2022 Money Flow. Все права защищены.
+    </a-typography-text>
   </a-layout-footer>
 </template>
 

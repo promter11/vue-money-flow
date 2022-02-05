@@ -11,16 +11,6 @@
       <a-col flex="0 1 auto">
         <a-space size="middle">
           <a-tooltip>
-            <template #title>Тема</template>
-            <a-dropdown :trigger="['click']">
-              <a-button shape="circle">
-                <template #icon>
-                  <bg-colors-outlined />
-                </template>
-              </a-button>
-            </a-dropdown>
-          </a-tooltip>
-          <a-tooltip>
             <template #title>Язык</template>
             <a-dropdown :trigger="['click']">
               <a-button shape="circle">
@@ -36,25 +26,28 @@
               </template>
             </a-dropdown>
           </a-tooltip>
-          <a-dropdown :trigger="['click']">
-            <a-button shape="circle">
-              <template #icon>
-                <user-outlined />
+          <a-tooltip>
+            <template #title>Пользователь</template>
+            <a-dropdown :trigger="['click']">
+              <a-button shape="circle">
+                <template #icon>
+                  <user-outlined />
+                </template>
+              </a-button>
+              <template #overlay>
+                <a-menu>
+                  <a-menu-item>
+                    <setting-outlined />
+                    <span class="ml-2">Настройки</span>
+                  </a-menu-item>
+                  <a-menu-item>
+                    <logout-outlined />
+                    <span class="ml-2">Выход</span>
+                  </a-menu-item>
+                </a-menu>
               </template>
-            </a-button>
-            <template #overlay>
-              <a-menu>
-                <a-menu-item>
-                  <setting-outlined />
-                  <span>Настройки</span>
-                </a-menu-item>
-                <a-menu-item>
-                  <logout-outlined />
-                  <span>Выход</span>
-                </a-menu-item>
-              </a-menu>
-            </template>
-          </a-dropdown>
+            </a-dropdown>
+          </a-tooltip>
         </a-space>
       </a-col>
     </a-row>

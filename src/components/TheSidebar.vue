@@ -1,6 +1,10 @@
 <template>
   <a-layout-sider collapsed-width="0" :collapsed="collapsed">
-    <h3 class="p-4 text-ellipsis white--text">Money Flow</h3>
+    <p
+      class="mb-0 p-4 font-family--philosopher text-lg text-uppercase text-ellipsis tracking-wide white--text"
+    >
+      Money flow
+    </p>
     <a-menu v-model:selected-keys="selected" theme="dark">
       <a-menu-item v-for="{ id, to, text, icon } in menu" :key="id">
         <router-link :to="to">
@@ -47,6 +51,7 @@ export default class TheSidebar extends Vue {
       to: "/operations",
     },
   ];
-  selected = ["accounts"];
+  // useRoute doesn't work correctly
+  selected = [window.location.pathname.slice(1) || "accounts"];
 }
 </script>

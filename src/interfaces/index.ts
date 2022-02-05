@@ -8,6 +8,7 @@ import {
 } from "@/interfaces/accounts";
 import { Category, ICategory } from "@/interfaces/category";
 import { Dialog, Nullable } from "@/interfaces/common";
+import { RootState } from "@/interfaces/store";
 
 export {
   Account,
@@ -20,4 +21,5 @@ export {
   ICategory,
   ICurrency,
   Nullable,
+  RootState,
 };
