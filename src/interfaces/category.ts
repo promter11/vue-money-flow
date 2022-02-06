@@ -4,5 +4,10 @@ export interface ICategory {
   balance: number;
   id: number;
   name: string;
-  type: Category;
+  type: number;
+}
+
+export interface ICategoryType {
+  label: string;
+  value: number;
 }

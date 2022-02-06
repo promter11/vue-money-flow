@@ -11,7 +11,7 @@
           balance: null,
           id: null,
           name: null,
-          type: null,
+          type: 1,
         }
       )
     "
@@ -22,7 +22,7 @@
           balance: null,
           id: null,
           name: null,
-          type: null,
+          type: 1,
         }
       )
     "
@@ -37,6 +37,9 @@
       <a-form-item label="Название" :rules="[{ required: true }]">
         <a-input v-model:value="category.name" />
       </a-form-item>
+      <a-form-item label="Тип" :rules="[{ required: true }]">
+        <a-select v-model:value="category.type" :options="types" />
+      </a-form-item>
       <a-form-item label="Баланс" :rules="[{ required: true }]">
         <a-input-number v-model:value="category.balance" />
       </a-form-item>
@@ -47,7 +50,7 @@
 <script lang="ts">
 import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 
-import { Dialog, ICategory, Nullable } from "@/interfaces";
+import { Dialog, ICategory, ICategoryType, Nullable } from "@/interfaces";
 
 @Options({
   name: "UpsertCategory",
@@ -61,6 +64,7 @@ export default class UpsertCategory extends Vue {
     return { category, dialogs };
   }
 
+  @Prop({ required: true }) types!: ICategoryType[];
   @Prop({ required: true }) dialog!: boolean;
   @Prop({ required: true }) category!: ICategory;
 

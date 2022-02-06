@@ -1,5 +1,6 @@
 <template>
   <upsert-category
+    :types="types"
     :dialog="dialogs.upsert"
     :category="category"
     @handle-dialog="({ dialogs, category }) => handleDialog(dialogs, category)"
@@ -9,6 +10,7 @@
     :category="category"
     @handle-dialog="({ dialogs, category }) => handleDialog(dialogs, category)"
   />
+  <h2 class="mb-0">Категории</h2>
   <category-tabs
     :categories="categories"
     @handle-dialog="({ dialogs, category }) => handleDialog(dialogs, category)"
@@ -22,17 +24,19 @@ import CategoryList from "@/components/Categories/CategoryList.vue";
 import CategoryTabs from "@/components/Categories/CategoryTabs.vue";
 import RemoveCategory from "@/components/Categories/Dialogs/Remove.vue";
 import UpsertCategory from "@/components/Categories/Dialogs/Upsert.vue";
-import { Dialog, ICategory, Nullable } from "@/interfaces";
+import { Dialog, ICategory, ICategoryType, Nullable } from "@/interfaces";
 import CategoryService from "@/services/CategoryService";
 
 @Options({
   components: { CategoryList, CategoryTabs, RemoveCategory, UpsertCategory },
   async created() {
+    this.types = await CategoryService.getCategoryTypes();
     this.categories = await CategoryService.getCategories();
   },
   name: "Categories",
 })
 export default class Categories extends Vue {
+  types: ICategoryType[] = [];
   dialogs: Record<Dialog, boolean> = {
     remove: false,
     upsert: false,
@@ -41,7 +45,7 @@ export default class Categories extends Vue {
     balance: null,
     id: null,
     name: null,
-    type: null,
+    type: 1,
   };
   categories: ICategory[] = [];
 
@@ -54,9 +58,3 @@ export default class Categories extends Vue {
   }
 }
 </script>
-
-<style lang="scss">
-.space-container .ant-space-item {
-  flex-shrink: 0;
-}
-</style>

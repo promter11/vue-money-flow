@@ -4,14 +4,15 @@ import {
   IAccountData,
   IAccountTotal,
   IAccountType,
-  ICurrency,
 } from "@/interfaces/accounts";
-import { Category, ICategory } from "@/interfaces/category";
-import { Dialog, Nullable } from "@/interfaces/common";
-import { RootState } from "@/interfaces/store";
+import { Category, ICategory, ICategoryType } from "@/interfaces/category";
+import { Dialog, ICurrency, Nullable } from "@/interfaces/common";
+import { ApplicationState, RootState, UserState } from "@/interfaces/store";
+import { IUser } from "@/interfaces/user";
 
 export {
   Account,
+  ApplicationState,
   Category,
   Dialog,
   IAccount,
@@ -19,7 +20,10 @@ export {
   IAccountTotal,
   IAccountType,
   ICategory,
+  ICategoryType,
   ICurrency,
+  IUser,
   Nullable,
   RootState,
+  UserState,
 };

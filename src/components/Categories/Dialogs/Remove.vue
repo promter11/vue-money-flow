@@ -12,7 +12,7 @@
           balance: null,
           id: null,
           name: null,
-          type: null,
+          type: 1,
         }
       )
     "
@@ -23,7 +23,7 @@
           balance: null,
           id: null,
           name: null,
-          type: null,
+          type: 1,
         }
       )
     "

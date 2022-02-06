@@ -5,6 +5,7 @@ export interface IAccount {
   currency_id: number;
   description: string | null;
   title: string;
+  type: number;
 }
 
 export interface IAccountType {
@@ -30,10 +31,4 @@ export interface IAccountData {
     };
   };
   savings: IAccount[];
-}
-
-export interface ICurrency {
-  label: string;
-  sign: string;
-  value: number;
 }

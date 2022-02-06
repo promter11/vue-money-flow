@@ -1,3 +1,5 @@
-import { ApplicationState } from "@/interfaces/store";
+import { ApplicationState } from "@/interfaces";
 
-export const state: ApplicationState = {};
+export const state: ApplicationState = {
+  currencies: [],
+};

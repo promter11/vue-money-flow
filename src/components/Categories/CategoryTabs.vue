@@ -1,16 +1,16 @@
 <template>
   <a-tabs :animated="true" :active-key="tab" @change="changeTab">
-    <a-tab-pane key="income" tab="Доходы" class="overflow-x-auto">
+    <a-tab-pane key="income" tab="Доходы">
       <category-list
-        :categories="categories.filter(({ type }) => type === 'income')"
+        :categories="categories.filter(({ type }) => type === 1)"
         @handle-dialog="
           ({ dialogs, category }) => handleDialog(dialogs, category)
         "
       />
     </a-tab-pane>
-    <a-tab-pane key="costs" tab="Расходы" class="overflow-x-auto">
+    <a-tab-pane key="costs" tab="Расходы">
       <category-list
-        :categories="categories.filter(({ type }) => type === 'costs')"
+        :categories="categories.filter(({ type }) => type === 2)"
         @handle-dialog="
           ({ dialogs, category }) => handleDialog(dialogs, category)
         "

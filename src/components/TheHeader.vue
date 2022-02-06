@@ -1,13 +1,7 @@
 <template>
   <a-layout-header class="pl-4 pr-4 white">
     <a-row type="flex">
-      <a-col flex="auto">
-        <a-button @click="toggleSidebar">
-          <template #icon>
-            <menu-outlined />
-          </template>
-        </a-button>
-      </a-col>
+      <a-col flex="auto"></a-col>
       <a-col flex="0 1 auto">
         <a-space size="middle">
           <a-tooltip>
@@ -38,11 +32,11 @@
                 <a-menu>
                   <a-menu-item>
                     <setting-outlined />
-                    <span class="ml-2">Настройки</span>
+                    <span class="ml-4">Настройки</span>
                   </a-menu-item>
                   <a-menu-item>
                     <logout-outlined />
-                    <span class="ml-2">Выход</span>
+                    <span class="ml-4">Выход</span>
                   </a-menu-item>
                 </a-menu>
               </template>
@@ -56,30 +50,21 @@
 
 <script lang="ts">
 import {
-  BgColorsOutlined,
   GlobalOutlined,
   LogoutOutlined,
-  MenuOutlined,
   SettingOutlined,
   UserOutlined,
 } from "@ant-design/icons-vue";
-import { Emit, Options, Vue } from "vue-property-decorator";
+import { Options, Vue } from "vue-property-decorator";
 
 @Options({
   components: {
-    BgColorsOutlined,
     GlobalOutlined,
     LogoutOutlined,
-    MenuOutlined,
     SettingOutlined,
     UserOutlined,
   },
   name: "TheHeader",
 })
-export default class TheHeader extends Vue {
-  @Emit()
-  private toggleSidebar() {
-    return true;
-  }
-}
+export default class TheHeader extends Vue {}
 </script>

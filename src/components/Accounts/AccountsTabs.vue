@@ -1,27 +1,30 @@
 <template>
   <a-tabs :animated="true" :active-key="tab" @change="changeTab">
-    <a-tab-pane key="accounts" tab="Счета">
+    <a-tab-pane key="accounts" tab="Обычный">
       <accounts-list
-        btn-text="Добавить счёт"
         :items="items.accounts"
         :currencies="currencies"
-        @handle-dialog="handleDialog"
+        @handle-dialog="
+          ({ dialogs, account }) => handleDialog(dialogs, account)
+        "
       />
     </a-tab-pane>
-    <a-tab-pane key="savings" tab="Сбережения">
+    <a-tab-pane key="debts" tab="Долговой">
       <accounts-list
-        btn-text="Добавить сбережение"
-        :items="items.savings"
-        :currencies="currencies"
-        @handle-dialog="handleDialog"
-      />
-    </a-tab-pane>
-    <a-tab-pane key="debts" tab="Долги">
-      <accounts-list
-        btn-text="Добавить долг"
         :items="items.debts"
         :currencies="currencies"
-        @handle-dialog="handleDialog"
+        @handle-dialog="
+          ({ dialogs, account }) => handleDialog(dialogs, account)
+        "
+      />
+    </a-tab-pane>
+    <a-tab-pane key="savings" tab="Накопительный">
+      <accounts-list
+        :items="items.savings"
+        :currencies="currencies"
+        @handle-dialog="
+          ({ dialogs, account }) => handleDialog(dialogs, account)
+        "
       />
     </a-tab-pane>
     <a-tab-pane key="finances" tab="Финансы">
@@ -36,7 +39,14 @@ import { useRoute } from "vue-router";
 
 import AccountsList from "@/components/Accounts/AccountsList.vue";
 import AccountsTable from "@/components/Accounts/AccountsTable.vue";
-import { Account, Dialog, IAccountData, ICurrency } from "@/interfaces";
+import {
+  Account,
+  Dialog,
+  IAccount,
+  IAccountData,
+  ICurrency,
+  Nullable,
+} from "@/interfaces";
 
 @Options({
   components: {
@@ -50,8 +60,11 @@ import { Account, Dialog, IAccountData, ICurrency } from "@/interfaces";
 })
 export default class AccountsTabs extends Vue {
   @Emit()
-  private handleDialog(dialogs: Partial<Record<Dialog, boolean>>) {
-    return dialogs;
+  private handleDialog(
+    dialogs: Partial<Record<Dialog, boolean>>,
+    account: Nullable<IAccount>
+  ) {
+    return { account, dialogs };
   }
 
   @Prop({ required: true }) items!: IAccountData;

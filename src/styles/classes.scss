@@ -1,3 +1,15 @@
+.absolute {
+  position: absolute;
+}
+
+.top-4 {
+  top: 1rem;
+}
+
+.right-4 {
+  right: 1rem;
+}
+
 .w-full {
   width: 100%;
 }
@@ -14,8 +26,16 @@
   display: block;
 }
 
+.flex {
+  display: flex;
+}
+
 .flex-shrink-0 {
   flex-shrink: 0;
+}
+
+.align-center {
+  align-items: center;
 }
 
 .font-family--philosopher {
@@ -54,14 +74,26 @@
   letter-spacing: 0.025em;
 }
 
+.pl-px {
+  padding-left: 1px;
+}
+
 .overflow-x-auto {
   overflow-x: auto;
 }
 
+.border-lg {
+  border-radius: 0.5rem;
+}
+
 .white {
-  background-color: #ffffff;
+  background-color: $white-color;
 }
 
 .white--text {
-  color: #ffffff;
+  color: $white-color;
+}
+
+.grey--text {
+  color: $grey-color;
 }

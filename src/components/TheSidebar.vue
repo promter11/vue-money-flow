@@ -1,5 +1,21 @@
 <template>
-  <a-layout-sider collapsed-width="0" :collapsed="collapsed">
+  <a-layout-sider
+    width="250"
+    breakpoint="md"
+    collapsed-width="0"
+    :collapsed="collapsed"
+    :zero-width-trigger-style="{
+      top: '20px',
+      right: '-35px',
+      width: 'auto',
+      height: 'auto',
+      fontSize: '20px',
+      lineHeight: 1,
+      background: 'transparent',
+      color: '#000000',
+    }"
+    @collapse="toggleSidebar"
+  >
     <p
       class="mb-0 p-4 font-family--philosopher text-lg text-uppercase text-ellipsis tracking-wide white--text"
     >
@@ -22,13 +38,18 @@ import {
   PieChartOutlined,
   ProfileOutlined,
 } from "@ant-design/icons-vue";
-import { Options, Prop, Vue } from "vue-property-decorator";
+import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 
 @Options({
   components: { CreditCardOutlined, PieChartOutlined, ProfileOutlined },
   name: "TheSidebar",
 })
 export default class TheSidebar extends Vue {
+  @Emit()
+  private toggleSidebar() {
+    return;
+  }
+
   @Prop({ required: true }) collapsed!: boolean;
 
   menu = [

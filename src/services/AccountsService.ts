@@ -1,4 +1,4 @@
-import { IAccountData, IAccountType, ICurrency } from "@/interfaces";
+import { IAccountData, IAccountType } from "@/interfaces";
 
 const AccountsService = {
   async getAccountTypes(): Promise<IAccountType[]> {
@@ -11,8 +11,20 @@ const AccountsService = {
   async getAccountsData(): Promise<IAccountData> {
     return Promise.resolve({
       accounts: [
-        { balance: 100, currency_id: 1, description: null, title: "Счет 1" },
-        { balance: 500, currency_id: 3, description: "China", title: "Счет 2" },
+        {
+          balance: 1000.75,
+          currency_id: 1,
+          description: null,
+          title: "Счет 1",
+          type: 1,
+        },
+        {
+          balance: 500,
+          currency_id: 3,
+          description: "China",
+          title: "Счет 2",
+          type: 2,
+        },
       ],
       debts: [
         {
@@ -20,6 +32,7 @@ const AccountsService = {
           currency_id: 1,
           description: "Я хочу пиццы",
           title: "Долг 1",
+          type: 1,
         },
       ],
       finances: {
@@ -48,18 +61,10 @@ const AccountsService = {
           currency_id: 5,
           description: null,
           title: "Сбережение 1",
+          type: 3,
         },
       ],
     });
-  },
-  async getCurrencies(): Promise<ICurrency[]> {
-    return Promise.resolve([
-      { label: "Британский фунт", sign: "£", value: 1 },
-      { label: "Доллар США", sign: "$", value: 2 },
-      { label: "Евро", sign: "€", value: 3 },
-      { label: "Российский рубль", sign: "₽", value: 4 },
-      { label: "Японская йена", sign: "¥", value: 5 },
-    ]);
   },
 };
 
