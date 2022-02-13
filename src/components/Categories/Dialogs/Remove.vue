@@ -5,28 +5,8 @@
     cancel-text="Отмена"
     :visible="dialog"
     :ok-button-props="{ danger: true }"
-    @ok="
-      handleDialog(
-        { remove: false },
-        {
-          balance: null,
-          id: null,
-          name: null,
-          type: 1,
-        }
-      )
-    "
-    @cancel="
-      handleDialog(
-        { remove: false },
-        {
-          balance: null,
-          id: null,
-          name: null,
-          type: 1,
-        }
-      )
-    "
+    @ok="handleDialog({ remove: false }, initialCategory)"
+    @cancel="handleDialog({ remove: false }, initialCategory)"
   >
     <a-typography-paragraph>
       Вы действительно хотите удалить категорию
@@ -39,7 +19,7 @@
 <script lang="ts">
 import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 
-import { Dialog, ICategory, Nullable } from "@/interfaces";
+import { Dialog, ICategory } from "@/interfaces";
 
 @Options({
   name: "RemoveCategory",
@@ -48,12 +28,13 @@ export default class RemoveCategory extends Vue {
   @Emit()
   private handleDialog(
     dialogs: Partial<Record<Dialog, boolean>>,
-    category: Nullable<ICategory>
+    category: ICategory
   ) {
     return { category, dialogs };
   }
 
   @Prop({ required: true }) dialog!: boolean;
   @Prop({ required: true }) category!: ICategory;
+  @Prop({ required: true }) initialCategory!: ICategory;
 }
 </script>

@@ -2,8 +2,11 @@
   <a-tabs :animated="true" :active-key="tab" @change="changeTab">
     <a-tab-pane key="accounts" tab="Обычный">
       <accounts-list
-        :items="items.accounts"
+        :items="
+          items.accounts.filter(({ type }) => type === $const('ACCOUNT_COMMON'))
+        "
         :currencies="currencies"
+        :initial-account="initialAccount"
         @handle-dialog="
           ({ dialogs, account }) => handleDialog(dialogs, account)
         "
@@ -11,8 +14,11 @@
     </a-tab-pane>
     <a-tab-pane key="debts" tab="Долговой">
       <accounts-list
-        :items="items.debts"
+        :items="
+          items.accounts.filter(({ type }) => type === $const('ACCOUNT_DEBT'))
+        "
         :currencies="currencies"
+        :initial-account="initialAccount"
         @handle-dialog="
           ({ dialogs, account }) => handleDialog(dialogs, account)
         "
@@ -20,8 +26,11 @@
     </a-tab-pane>
     <a-tab-pane key="savings" tab="Накопительный">
       <accounts-list
-        :items="items.savings"
+        :items="
+          items.accounts.filter(({ type }) => type === $const('ACCOUNT_SAVING'))
+        "
         :currencies="currencies"
+        :initial-account="initialAccount"
         @handle-dialog="
           ({ dialogs, account }) => handleDialog(dialogs, account)
         "
@@ -45,7 +54,6 @@ import {
   IAccount,
   IAccountData,
   ICurrency,
-  Nullable,
 } from "@/interfaces";
 
 @Options({
@@ -62,13 +70,14 @@ export default class AccountsTabs extends Vue {
   @Emit()
   private handleDialog(
     dialogs: Partial<Record<Dialog, boolean>>,
-    account: Nullable<IAccount>
+    account: IAccount
   ) {
     return { account, dialogs };
   }
 
   @Prop({ required: true }) items!: IAccountData;
   @Prop({ required: true }) currencies!: ICurrency[];
+  @Prop({ required: true }) initialAccount!: IAccount;
 
   tab = useRoute().query.type || "accounts";
 

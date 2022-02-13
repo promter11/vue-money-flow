@@ -1,5 +1,5 @@
 <template>
-  <a-layout class="h-screen">
+  <a-layout class="min-h-screen">
     <the-sidebar :collapsed="collapsed" @toggle-sidebar="toggleSidebar" />
     <a-layout>
       <the-header @toggle-sidebar="toggleSidebar" />

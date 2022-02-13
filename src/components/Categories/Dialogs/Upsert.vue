@@ -4,28 +4,8 @@
     ok-text="Добавить"
     cancel-text="Отмена"
     :visible="dialog"
-    @ok="
-      handleDialog(
-        { upsert: false },
-        {
-          balance: null,
-          id: null,
-          name: null,
-          type: 1,
-        }
-      )
-    "
-    @cancel="
-      handleDialog(
-        { upsert: false },
-        {
-          balance: null,
-          id: null,
-          name: null,
-          type: 1,
-        }
-      )
-    "
+    @ok="handleDialog({ upsert: false }, initialCategory)"
+    @cancel="handleDialog({ upsert: false }, initialCategory)"
   >
     <a-form
       name="upsert-form"
@@ -50,7 +30,7 @@
 <script lang="ts">
 import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 
-import { Dialog, ICategory, ICategoryType, Nullable } from "@/interfaces";
+import { Dialog, ICategory, ICategoryType } from "@/interfaces";
 
 @Options({
   name: "UpsertCategory",
@@ -59,7 +39,7 @@ export default class UpsertCategory extends Vue {
   @Emit()
   private handleDialog(
     dialogs: Partial<Record<Dialog, boolean>>,
-    category: Nullable<ICategory>
+    category: ICategory
   ) {
     return { category, dialogs };
   }
@@ -67,6 +47,7 @@ export default class UpsertCategory extends Vue {
   @Prop({ required: true }) types!: ICategoryType[];
   @Prop({ required: true }) dialog!: boolean;
   @Prop({ required: true }) category!: ICategory;
+  @Prop({ required: true }) initialCategory!: ICategory;
 
   validations = {
     required: "${label} является обязательным полем!",

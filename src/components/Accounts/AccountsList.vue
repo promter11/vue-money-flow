@@ -2,18 +2,7 @@
   <a-button
     type="primary"
     class="mb-4"
-    @click="
-      handleDialog(
-        { upsert: true },
-        {
-          balance: 0,
-          currency_id: 4,
-          description: null,
-          title: null,
-          type: 1,
-        }
-      )
-    "
+    @click="handleDialog({ upsert: true }, initialAccount)"
   >
     <template #icon>
       <plus-outlined />
@@ -54,11 +43,7 @@
             (currencies.find(({ value }) => value === item.currency_id) ?? {})
               .sign
           }}
-          {{
-            item.balance.toLocaleString("en-US", {
-              minimumFractionDigits: 2,
-            })
-          }}
+          {{ formatNumber(item.balance) }}
         </strong>
       </a-list-item>
     </template>
@@ -74,22 +59,25 @@ import {
 } from "@ant-design/icons-vue";
 import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 
-import { Dialog, IAccount, ICurrency, Nullable } from "@/interfaces";
+import { Dialog, IAccount, ICurrency } from "@/interfaces";
+import { formatNumber } from "@/utils/format";
 
 @Options({
   components: { DeleteOutlined, EditOutlined, MoreOutlined, PlusOutlined },
+  methods: { formatNumber },
   name: "AccountsList",
 })
 export default class AccountsList extends Vue {
   @Emit()
   private handleDialog(
     dialogs: Partial<Record<Dialog, boolean>>,
-    account: Nullable<IAccount>
+    account: IAccount
   ) {
     return { account, dialogs };
   }
 
   @Prop({ required: true }) items!: IAccount[];
   @Prop({ required: true }) currencies!: ICurrency[];
+  @Prop({ required: true }) initialAccount!: IAccount;
 }
 </script>

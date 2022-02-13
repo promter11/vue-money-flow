@@ -4,30 +4,8 @@
     ok-text="Добавить"
     cancel-text="Отмена"
     :visible="dialog"
-    @ok="
-      handleDialog(
-        { upsert: false },
-        {
-          balance: 0,
-          currency_id: 4,
-          description: null,
-          title: null,
-          type: 1,
-        }
-      )
-    "
-    @cancel="
-      handleDialog(
-        { upsert: false },
-        {
-          balance: 0,
-          currency_id: 4,
-          description: null,
-          title: null,
-          type: 1,
-        }
-      )
-    "
+    @ok="handleDialog({ upsert: false }, initialAccount)"
+    @cancel="handleDialog({ upsert: false }, initialAccount)"
   >
     <a-form
       name="upsert-form"
@@ -61,13 +39,7 @@
 <script lang="ts">
 import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 
-import {
-  Dialog,
-  IAccount,
-  IAccountType,
-  ICurrency,
-  Nullable,
-} from "@/interfaces";
+import { Dialog, IAccount, IAccountType, ICurrency } from "@/interfaces";
 
 @Options({
   name: "UpsertAccount",
@@ -76,7 +48,7 @@ export default class UpsertAccount extends Vue {
   @Emit()
   private handleDialog(
     dialogs: Partial<Record<Dialog, boolean>>,
-    account: Nullable<IAccount>
+    account: IAccount
   ) {
     return { account, dialogs };
   }
@@ -85,6 +57,7 @@ export default class UpsertAccount extends Vue {
   @Prop({ required: true }) dialog!: boolean;
   @Prop({ required: true }) account!: IAccount;
   @Prop({ required: true }) currencies!: ICurrency[];
+  @Prop({ required: true }) initialAccount!: IAccount;
 
   validations = {
     required: "${label} является обязательным полем!",

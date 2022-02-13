@@ -17,18 +17,10 @@ export interface IAccountTotal {
   assets: number;
   currency_name: string;
   key: string;
-  liability: number;
+  liabilities: number;
 }
 
 export interface IAccountData {
   accounts: IAccount[];
-  debts: IAccount[];
-  finances: {
-    data: IAccountTotal[];
-    total: {
-      assets: number;
-      liability: number;
-    };
-  };
-  savings: IAccount[];
+  finances: IAccountTotal[];
 }

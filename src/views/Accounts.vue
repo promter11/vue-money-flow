@@ -4,17 +4,20 @@
     :dialog="dialogs.upsert"
     :account="account"
     :currencies="currencies"
+    :initial-account="initialAccount"
     @handle-dialog="({ dialogs, account }) => handleDialog(dialogs, account)"
   />
   <remove-account
     :dialog="dialogs.remove"
     :account="account"
+    :initial-account="initialAccount"
     @handle-dialog="({ dialogs, account }) => handleDialog(dialogs, account)"
   />
   <h2 class="mb-0">Счета</h2>
   <accounts-tabs
     :items="items"
     :currencies="currencies"
+    :initial-account="initialAccount"
     @handle-dialog="({ dialogs, account }) => handleDialog(dialogs, account)"
   />
 </template>
@@ -32,7 +35,6 @@ import {
   IAccountData,
   IAccountType,
   ICurrency,
-  Nullable,
 } from "@/interfaces";
 import AccountsService from "@/services/AccountsService";
 
@@ -53,35 +55,31 @@ export default class Accounts extends Vue {
 
   items: IAccountData = {
     accounts: [],
-    debts: [],
-    finances: {
-      data: [],
-      total: {
-        assets: 0,
-        liability: 0,
-      },
-    },
-    savings: [],
+    finances: [],
   };
   types: IAccountType[] = [];
   dialogs: Record<Dialog, boolean> = {
     remove: false,
     upsert: false,
   };
-  account: Nullable<IAccount> = {
-    balance: 0,
-    currency_id: 4,
-    description: null,
-    title: null,
-    type: 1,
-  };
+  account: IAccount = { ...this.initialAccount };
+
+  get initialAccount(): IAccount {
+    return {
+      balance: 0,
+      currency_id: 4,
+      description: null,
+      title: "",
+      type: 1,
+    };
+  }
 
   private handleDialog(
     dialogs: Partial<Record<Dialog, boolean>>,
-    account: Nullable<IAccount>
+    account: IAccount
   ) {
     this.dialogs = { ...this.dialogs, ...dialogs };
-    this.account = account;
+    this.account = { ...account };
   }
 }
 </script>

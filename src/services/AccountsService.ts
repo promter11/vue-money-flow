@@ -23,45 +23,35 @@ const AccountsService = {
           currency_id: 3,
           description: "China",
           title: "Счет 2",
-          type: 2,
+          type: 1,
         },
-      ],
-      debts: [
         {
           balance: 1200,
           currency_id: 1,
           description: "Я хочу пиццы",
           title: "Долг 1",
-          type: 1,
+          type: 2,
         },
-      ],
-      finances: {
-        data: [
-          {
-            assets: 2000,
-            currency_name: "Российский рубль",
-            key: "ruble",
-            liability: 0,
-          },
-          {
-            assets: 500,
-            currency_name: "Доллар США",
-            key: "dollar",
-            liability: 20,
-          },
-        ],
-        total: {
-          assets: 2500,
-          liability: 20,
-        },
-      },
-      savings: [
         {
           balance: 250,
           currency_id: 5,
           description: null,
           title: "Сбережение 1",
           type: 3,
+        },
+      ],
+      finances: [
+        {
+          assets: 2000,
+          currency_name: "Российский рубль",
+          key: "ruble",
+          liabilities: 0,
+        },
+        {
+          assets: 500,
+          currency_name: "Доллар США",
+          key: "dollar",
+          liabilities: 20,
         },
       ],
     });

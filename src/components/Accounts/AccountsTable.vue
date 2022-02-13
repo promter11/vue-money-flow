@@ -1,10 +1,5 @@
 <template>
-  <a-table
-    bordered
-    :columns="columns"
-    :pagination="false"
-    :data-source="items.data"
-  >
+  <a-table bordered :columns="columns" :pagination="false" :data-source="items">
     <template #summary>
       <a-table-summary-row>
         <a-table-summary-cell>
@@ -12,12 +7,12 @@
         </a-table-summary-cell>
         <a-table-summary-cell>
           <a-typography-text type="success">
-            {{ items.total.assets }}
+            {{ items.reduce((acc, { assets }) => acc + assets, 0) }}
           </a-typography-text>
         </a-table-summary-cell>
         <a-table-summary-cell>
           <a-typography-text type="danger">
-            {{ items.total.liability }}
+            {{ items.reduce((acc, { liabilities }) => acc + liabilities, 0) }}
           </a-typography-text>
         </a-table-summary-cell>
       </a-table-summary-row>
@@ -46,7 +41,7 @@ export default class AccountsTable extends Vue {
       title: "Активы",
     },
     {
-      dataIndex: "liability",
+      dataIndex: "liabilities",
       title: "Пассивы",
     },
   ];
