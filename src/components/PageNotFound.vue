@@ -1,5 +1,5 @@
 <template>
-  <a-row type="flex" class="h-full text-center" align="middle" justify="center">
+  <a-row class="h-full text-center" align="middle" justify="center">
     <a-col flex="auto">
       <a-typography-title style="font-size: 120px; margin-bottom: 0">
         404

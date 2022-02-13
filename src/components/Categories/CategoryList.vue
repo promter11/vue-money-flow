@@ -9,7 +9,7 @@
     </template>
     <span>Добавить категорию</span>
   </a-button>
-  <a-row>
+  <a-row :gutter="[16, 16]">
     <a-col
       v-for="category in categories"
       :key="category.id"
@@ -19,7 +19,7 @@
       :xl="6"
     >
       <a-card>
-        <a-row type="flex">
+        <a-row>
           <a-col class="mr-8">
             <a-card-meta
               class="flex align-center"

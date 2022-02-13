@@ -1,4 +1,4 @@
-const formatNumber = (value: number, locale = "en-US"): string => {
+const formatNumber = (value: number, locale = "ru-RU"): string => {
   return value.toLocaleString(locale, { minimumFractionDigits: 2 });
 };
 

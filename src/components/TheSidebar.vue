@@ -37,11 +37,17 @@ import {
   CreditCardOutlined,
   PieChartOutlined,
   ProfileOutlined,
+  SettingOutlined,
 } from "@ant-design/icons-vue";
 import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 
 @Options({
-  components: { CreditCardOutlined, PieChartOutlined, ProfileOutlined },
+  components: {
+    CreditCardOutlined,
+    PieChartOutlined,
+    ProfileOutlined,
+    SettingOutlined,
+  },
   name: "TheSidebar",
 })
 export default class TheSidebar extends Vue {
@@ -70,6 +76,12 @@ export default class TheSidebar extends Vue {
       id: "operations",
       text: "Операции",
       to: "/operations",
+    },
+    {
+      icon: SettingOutlined,
+      id: "settings",
+      text: "Настройки",
+      to: "/settings",
     },
   ];
   // useRoute doesn't work correctly

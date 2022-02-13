@@ -5,7 +5,10 @@ const UserService = {
     return Promise.resolve({
       balance: 12400.4,
       currency_id: 2,
-      name: "Alexandr Samylin",
+      email: "alexandr.samylin@gmail.com",
+      first_name: "Alexandr",
+      language: "ru",
+      last_name: "Samylin",
     });
   },
 };

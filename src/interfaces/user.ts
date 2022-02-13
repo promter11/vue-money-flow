@@ -1,5 +1,8 @@
 export interface IUser {
   balance: number;
   currency_id: number;
-  name: string;
+  email: string;
+  first_name: string;
+  language: "ru" | "en";
+  last_name: string;
 }
