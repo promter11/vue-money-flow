@@ -3,7 +3,7 @@
     <a-row>
       <a-col flex="auto"></a-col>
       <a-col flex="0 1 auto">
-        <a-dropdown :trigger="['click']">
+        <a-dropdown :trigger="[`click`]">
           <a-typography-link @click.prevent>
             <a-space>
               <a-avatar class="block">
@@ -30,24 +30,12 @@
 </template>
 
 <script lang="ts">
-import {
-  DownOutlined,
-  GlobalOutlined,
-  LogoutOutlined,
-  UserOutlined,
-} from "@ant-design/icons-vue";
 import { Getter } from "s-vuex-class";
 import { Options, Vue } from "vue-property-decorator";
 
 import { IUser } from "@/interfaces";
 
 @Options({
-  components: {
-    DownOutlined,
-    GlobalOutlined,
-    LogoutOutlined,
-    UserOutlined,
-  },
   name: "TheHeader",
 })
 export default class TheHeader extends Vue {

@@ -31,6 +31,7 @@ import { FETCH_CURRENCIES, FETCH_USER } from "@/store/types/actions";
     this.fetchCurrencies();
     this.fetchUser();
   },
+  name: "App",
 })
 export default class App extends Vue {
   @Action(FETCH_CURRENCIES) fetchCurrencies!: () => Promise<ICurrency[]>;

@@ -18,73 +18,77 @@
       :lg="8"
       :xl="6"
     >
-      <a-card>
-        <a-row>
-          <a-col class="mr-8">
-            <a-card-meta
-              class="flex align-center"
-              :title="`${
+      <a-space
+        size="middle"
+        class="w-full p-4 border-lg"
+        direction="vertical"
+        :style="{ backgroundColor: category.color }"
+      >
+        <a-row class="align-center">
+          <a-col flex="1 0 auto">
+            <a-typography-text strong class="text-base white--text">
+              {{ category.name }}
+            </a-typography-text>
+          </a-col>
+          <a-col>
+            <a-avatar class="transparent">
+              <template #icon>
+                <component :is="category.icon" />
+              </template>
+            </a-avatar>
+          </a-col>
+        </a-row>
+        <a-row class="justify-center">
+          <a-col>
+            <a-typography-text
+              strong
+              class="mr-1 text-2xl opacity-50 white--text"
+            >
+              {{
                 (
                   currencies.find(({ value }) => value === user.currency_id) ??
                   {}
                 ).sign
-              } ${formatNumber(category.balance)}`"
-              :description="category.name"
-            >
-              <template #avatar>
-                <a-avatar
-                  src="https://picsum.photos/45"
-                  alt="Category"
-                  :size="45"
-                />
-              </template>
-            </a-card-meta>
-          </a-col>
-          <a-col class="absolute top-4 right-4">
-            <a-tooltip>
-              <template #title>Действия</template>
-              <a-dropdown :trigger="['click']">
-                <more-outlined class="text-base grey--text" />
-                <template #overlay>
-                  <a-menu>
-                    <a-menu-item
-                      @click="handleDialog({ upsert: true }, category)"
-                    >
-                      <edit-outlined />
-                      <span class="ml-4">Изменить</span>
-                    </a-menu-item>
-                    <a-menu-item
-                      @click="handleDialog({ remove: true }, category)"
-                    >
-                      <delete-outlined />
-                      <span class="ml-4">Удалить</span>
-                    </a-menu-item>
-                  </a-menu>
-                </template>
-              </a-dropdown>
-            </a-tooltip>
+              }}
+            </a-typography-text>
+            <a-typography-text strong class="text-2xl white--text">
+              {{ formatNumber(category.balance) }}
+            </a-typography-text>
           </a-col>
         </a-row>
-      </a-card>
+        <a-row class="justify-center">
+          <a-col>
+            <a-space size="middle">
+              <a-button
+                ghost
+                class="style-btn"
+                @click="handleDialog({ upsert: true }, category)"
+              >
+                Изменить
+              </a-button>
+              <a-button
+                ghost
+                class="style-btn"
+                @click="handleDialog({ remove: true }, category)"
+              >
+                Удалить
+              </a-button>
+            </a-space>
+          </a-col>
+        </a-row>
+      </a-space>
     </a-col>
   </a-row>
 </template>
 
 <script lang="ts">
-import {
-  DeleteOutlined,
-  EditOutlined,
-  MoreOutlined,
-  PlusOutlined,
-} from "@ant-design/icons-vue";
 import { Getter } from "s-vuex-class";
 import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 
-import { Dialog, ICategory, ICurrency, IUser } from "@/interfaces";
+import { CategoryDialog, ICategory, ICurrency, IUser } from "@/interfaces";
 import { formatNumber } from "@/utils/format";
 
 @Options({
-  components: { DeleteOutlined, EditOutlined, MoreOutlined, PlusOutlined },
   methods: { formatNumber },
   name: "CategoryList",
 })
@@ -94,7 +98,7 @@ export default class CategoryList extends Vue {
 
   @Emit()
   private handleDialog(
-    dialogs: Partial<Record<Dialog, boolean>>,
+    dialogs: Partial<Record<CategoryDialog, boolean>>,
     category: ICategory
   ) {
     return { category, dialogs };
@@ -104,3 +108,14 @@ export default class CategoryList extends Vue {
   @Prop({ required: true }) initialCategory!: ICategory;
 }
 </script>
+
+<style scoped lang="scss">
+.style-btn {
+  &:hover,
+  &:focus {
+    border-color: $white-color;
+    background-color: $white-color !important;
+    color: $black-color;
+  }
+}
+</style>

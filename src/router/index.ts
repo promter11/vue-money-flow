@@ -4,6 +4,7 @@ import PageNotFound from "@/components/PageNotFound.vue";
 import Accounts from "@/views/Accounts.vue";
 import Categories from "@/views/Categories.vue";
 import Operations from "@/views/Operations.vue";
+import Review from "@/views/Review.vue";
 import Settings from "@/views/Settings.vue";
 
 const routes: RouteRecordRaw[] = [
@@ -25,6 +26,11 @@ const routes: RouteRecordRaw[] = [
     component: Operations,
     name: "Operations",
     path: "/operations",
+  },
+  {
+    component: Review,
+    name: "Review",
+    path: "/review",
   },
   {
     component: Settings,

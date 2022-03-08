@@ -5,14 +5,14 @@
     collapsed-width="0"
     :collapsed="collapsed"
     :zero-width-trigger-style="{
-      top: '20px',
-      right: '-35px',
-      width: 'auto',
-      height: 'auto',
-      fontSize: '20px',
+      top: `20px`,
+      right: `-35px`,
+      width: `auto`,
+      height: `auto`,
+      fontSize: `20px`,
       lineHeight: 1,
-      background: 'transparent',
-      color: '#000000',
+      background: `transparent`,
+      color: `#000000`,
     }"
     @collapse="toggleSidebar"
   >
@@ -22,9 +22,9 @@
       Money flow
     </p>
     <a-menu v-model:selected-keys="selected" theme="dark">
-      <a-menu-item v-for="{ id, to, text, icon } in menu" :key="id">
+      <a-menu-item v-for="{ id, to, text, component } in menu" :key="id">
         <router-link :to="to">
-          <component :is="icon" />
+          <component :is="component" />
           <span>{{ text }}</span>
         </router-link>
       </a-menu-item>
@@ -33,21 +33,9 @@
 </template>
 
 <script lang="ts">
-import {
-  CreditCardOutlined,
-  PieChartOutlined,
-  ProfileOutlined,
-  SettingOutlined,
-} from "@ant-design/icons-vue";
 import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 
 @Options({
-  components: {
-    CreditCardOutlined,
-    PieChartOutlined,
-    ProfileOutlined,
-    SettingOutlined,
-  },
   name: "TheSidebar",
 })
 export default class TheSidebar extends Vue {
@@ -60,25 +48,31 @@ export default class TheSidebar extends Vue {
 
   menu = [
     {
-      icon: CreditCardOutlined,
+      component: "credit-card-outlined",
       id: "accounts",
       text: "Счета",
       to: "/accounts",
     },
     {
-      icon: PieChartOutlined,
+      component: "pie-chart-outlined",
       id: "categories",
       text: "Категории",
       to: "/categories",
     },
     {
-      icon: ProfileOutlined,
+      component: "profile-outlined",
       id: "operations",
       text: "Операции",
       to: "/operations",
     },
     {
-      icon: SettingOutlined,
+      component: "bar-chart-outlined",
+      id: "review",
+      text: "Обзор",
+      to: "/review",
+    },
+    {
+      component: "setting-outlined",
       id: "settings",
       text: "Настройки",
       to: "/settings",

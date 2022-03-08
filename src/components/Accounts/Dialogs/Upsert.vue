@@ -20,6 +20,18 @@
       <a-form-item label="Описание">
         <a-textarea v-model:value="account.description" />
       </a-form-item>
+      <a-form-item label="Иконка">
+        <a-space>
+          <a-avatar :style="{ backgroundColor: account.icon.color }">
+            <template #icon>
+              <component :is="account.icon.component" />
+            </template>
+          </a-avatar>
+          <a-button @click="handleDialog({ icon: true }, account)">
+            Изменить
+          </a-button>
+        </a-space>
+      </a-form-item>
       <a-form-item label="Тип" :rules="[{ required: true }]">
         <a-select v-model:value="account.type" :options="types"></a-select>
       </a-form-item>
@@ -39,7 +51,7 @@
 <script lang="ts">
 import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 
-import { Dialog, IAccount, IAccountType, ICurrency } from "@/interfaces";
+import { AccountDialog, IAccount, IAccountType, ICurrency } from "@/interfaces";
 
 @Options({
   name: "UpsertAccount",
@@ -47,7 +59,7 @@ import { Dialog, IAccount, IAccountType, ICurrency } from "@/interfaces";
 export default class UpsertAccount extends Vue {
   @Emit()
   private handleDialog(
-    dialogs: Partial<Record<Dialog, boolean>>,
+    dialogs: Partial<Record<AccountDialog, boolean>>,
     account: IAccount
   ) {
     return { account, dialogs };

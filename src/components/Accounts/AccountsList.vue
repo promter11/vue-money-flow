@@ -15,7 +15,7 @@
         <template #actions>
           <a-tooltip>
             <template #title>Действия</template>
-            <a-dropdown :trigger="['click']">
+            <a-dropdown :trigger="[`click`]">
               <more-outlined class="text-base" />
               <template #overlay>
                 <a-menu>
@@ -35,7 +35,11 @@
         <a-list-item-meta class="align-center" :description="item.description">
           <template #title>{{ item.title }}</template>
           <template #avatar>
-            <a-avatar alt="Account" src="https://picsum.photos/40" />
+            <a-avatar :style="{ backgroundColor: item.icon.color }">
+              <template #icon>
+                <component :is="item.icon.component" />
+              </template>
+            </a-avatar>
           </template>
         </a-list-item-meta>
         <strong class="pl-15">
@@ -51,26 +55,19 @@
 </template>
 
 <script lang="ts">
-import {
-  DeleteOutlined,
-  EditOutlined,
-  MoreOutlined,
-  PlusOutlined,
-} from "@ant-design/icons-vue";
 import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 
-import { Dialog, IAccount, ICurrency } from "@/interfaces";
+import { AccountDialog, IAccount, ICurrency } from "@/interfaces";
 import { formatNumber } from "@/utils/format";
 
 @Options({
-  components: { DeleteOutlined, EditOutlined, MoreOutlined, PlusOutlined },
   methods: { formatNumber },
   name: "AccountsList",
 })
 export default class AccountsList extends Vue {
   @Emit()
   private handleDialog(
-    dialogs: Partial<Record<Dialog, boolean>>,
+    dialogs: Partial<Record<AccountDialog, boolean>>,
     account: IAccount
   ) {
     return { account, dialogs };

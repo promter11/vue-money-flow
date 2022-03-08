@@ -19,7 +19,7 @@
 <script lang="ts">
 import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 
-import { Dialog, ICategory } from "@/interfaces";
+import { CategoryDialog, ICategory } from "@/interfaces";
 
 @Options({
   name: "RemoveCategory",
@@ -27,7 +27,7 @@ import { Dialog, ICategory } from "@/interfaces";
 export default class RemoveCategory extends Vue {
   @Emit()
   private handleDialog(
-    dialogs: Partial<Record<Dialog, boolean>>,
+    dialogs: Partial<Record<CategoryDialog, boolean>>,
     category: ICategory
   ) {
     return { category, dialogs };

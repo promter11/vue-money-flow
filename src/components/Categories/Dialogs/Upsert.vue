@@ -23,6 +23,26 @@
       <a-form-item label="Баланс" :rules="[{ required: true }]">
         <a-input-number v-model:value="category.balance" />
       </a-form-item>
+      <a-form-item label="Иконка">
+        <a-space>
+          <a-avatar :style="{ backgroundColor: `black` }">
+            <template #icon>
+              <component :is="category.icon" />
+            </template>
+          </a-avatar>
+          <a-button @click="handleDialog({ icon: true }, category)">
+            Изменить
+          </a-button>
+        </a-space>
+      </a-form-item>
+      <a-form-item label="Цвет">
+        <a-space>
+          <a-avatar :style="{ backgroundColor: category.color }"></a-avatar>
+          <a-button @click="handleDialog({ color: true }, category)">
+            Изменить
+          </a-button>
+        </a-space>
+      </a-form-item>
     </a-form>
   </a-modal>
 </template>
@@ -30,7 +50,7 @@
 <script lang="ts">
 import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 
-import { Dialog, ICategory, ICategoryType } from "@/interfaces";
+import { CategoryDialog, ICategory, ICategoryType } from "@/interfaces";
 
 @Options({
   name: "UpsertCategory",
@@ -38,7 +58,7 @@ import { Dialog, ICategory, ICategoryType } from "@/interfaces";
 export default class UpsertCategory extends Vue {
   @Emit()
   private handleDialog(
-    dialogs: Partial<Record<Dialog, boolean>>,
+    dialogs: Partial<Record<CategoryDialog, boolean>>,
     category: ICategory
   ) {
     return { category, dialogs };

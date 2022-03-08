@@ -94,14 +94,12 @@
 </template>
 
 <script lang="ts">
-import { UserOutlined } from "@ant-design/icons-vue";
 import { Getter } from "s-vuex-class";
 import { Options, Vue } from "vue-property-decorator";
 
 import { ICurrency, IUser } from "@/interfaces";
 
 @Options({
-  components: { UserOutlined },
   created() {
     this.settings = { ...this.user };
   },

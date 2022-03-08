@@ -12,6 +12,16 @@
     :initial-category="initialCategory"
     @handle-dialog="({ dialogs, category }) => handleDialog(dialogs, category)"
   />
+  <color-category
+    :dialog="dialogs.color"
+    :category="category"
+    @handle-dialog="({ dialogs, category }) => handleDialog(dialogs, category)"
+  />
+  <icon-category
+    :dialog="dialogs.icon"
+    :category="category"
+    @handle-dialog="({ dialogs, category }) => handleDialog(dialogs, category)"
+  />
   <a-space align="start" class="relative w-full">
     <h2 class="mb-0">Категории</h2>
     <a-statistic
@@ -31,15 +41,18 @@
 </template>
 
 <script lang="ts">
+import cloneDeep from "lodash.clonedeep";
 import { Getter } from "s-vuex-class";
 import { Options, Vue } from "vue-property-decorator";
 
 import CategoryList from "@/components/Categories/CategoryList.vue";
 import CategoryTabs from "@/components/Categories/CategoryTabs.vue";
+import ColorCategory from "@/components/Categories/Dialogs/Color.vue";
+import IconCategory from "@/components/Categories/Dialogs/Icon.vue";
 import RemoveCategory from "@/components/Categories/Dialogs/Remove.vue";
 import UpsertCategory from "@/components/Categories/Dialogs/Upsert.vue";
 import {
-  Dialog,
+  CategoryDialog,
   ICategory,
   ICategoryType,
   ICurrency,
@@ -49,7 +62,14 @@ import CategoryService from "@/services/CategoryService";
 import { formatNumber } from "@/utils/format";
 
 @Options({
-  components: { CategoryList, CategoryTabs, RemoveCategory, UpsertCategory },
+  components: {
+    CategoryList,
+    CategoryTabs,
+    ColorCategory,
+    IconCategory,
+    RemoveCategory,
+    UpsertCategory,
+  },
   async created() {
     this.types = await CategoryService.getCategoryTypes();
     this.categories = await CategoryService.getCategories();
@@ -62,16 +82,20 @@ export default class Categories extends Vue {
   @Getter currencies!: ICurrency[];
 
   types: ICategoryType[] = [];
-  dialogs: Record<Dialog, boolean> = {
+  dialogs: Record<CategoryDialog, boolean> = {
+    color: false,
+    icon: false,
     remove: false,
     upsert: false,
   };
-  category: ICategory = this.initialCategory;
+  category: ICategory = cloneDeep(this.initialCategory);
   categories: ICategory[] = [];
 
   get initialCategory(): ICategory {
     return {
       balance: 0,
+      color: "#000000",
+      icon: "credit-card-outlined",
       id: -1,
       name: "",
       type: 1,
@@ -79,11 +103,11 @@ export default class Categories extends Vue {
   }
 
   private handleDialog(
-    dialogs: Partial<Record<Dialog, boolean>>,
+    dialogs: Partial<Record<CategoryDialog, boolean>>,
     category: ICategory
   ) {
     this.dialogs = { ...this.dialogs, ...dialogs };
-    this.category = { ...category };
+    this.category = cloneDeep(category);
   }
 }
 </script>

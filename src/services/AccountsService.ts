@@ -15,6 +15,10 @@ const AccountsService = {
           balance: 1000.75,
           currency_id: 1,
           description: null,
+          icon: {
+            color: "#E91E63",
+            component: "credit-card-outlined",
+          },
           title: "Счет 1",
           type: 1,
         },
@@ -22,6 +26,10 @@ const AccountsService = {
           balance: 500,
           currency_id: 3,
           description: "China",
+          icon: {
+            color: "#00BCD4",
+            component: "wallet-outlined",
+          },
           title: "Счет 2",
           type: 1,
         },
@@ -29,6 +37,10 @@ const AccountsService = {
           balance: 1200,
           currency_id: 1,
           description: "Я хочу пиццы",
+          icon: {
+            color: "#FF9800",
+            component: "gold-outlined",
+          },
           title: "Долг 1",
           type: 2,
         },
@@ -36,6 +48,10 @@ const AccountsService = {
           balance: 250,
           currency_id: 5,
           description: null,
+          icon: {
+            color: "#9E9E9E",
+            component: "bank-outlined",
+          },
           title: "Сбережение 1",
           type: 3,
         },

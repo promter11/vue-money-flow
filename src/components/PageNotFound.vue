@@ -1,13 +1,13 @@
 <template>
   <a-row class="h-full text-center" align="middle" justify="center">
     <a-col flex="auto">
-      <a-typography-title style="font-size: 120px; margin-bottom: 0">
-        404
-      </a-typography-title>
-      <a-typography-paragraph>Страница не найдена</a-typography-paragraph>
-      <a-button type="primary" @click="$router.replace('/')">
-        На главную
-      </a-button>
+      <a-result title="404" status="404" sub-title="Страница не найдена">
+        <template #extra>
+          <a-button type="primary" @click="$router.replace(`/`)">
+            На главную
+          </a-button>
+        </template>
+      </a-result>
     </a-col>
   </a-row>
 </template>

@@ -3,7 +3,7 @@
     <a-tab-pane key="income" tab="Доходы">
       <category-list
         :categories="
-          categories.filter(({ type }) => type === $const('CATEGORY_INCOME'))
+          categories.filter(({ type }) => type === $const(`CATEGORY_INCOME`))
         "
         :initial-category="initialCategory"
         @handle-dialog="
@@ -14,7 +14,7 @@
     <a-tab-pane key="costs" tab="Расходы">
       <category-list
         :categories="
-          categories.filter(({ type }) => type === $const('CATEGORY_COSTS'))
+          categories.filter(({ type }) => type === $const(`CATEGORY_COSTS`))
         "
         :initial-category="initialCategory"
         @handle-dialog="
@@ -26,15 +26,14 @@
 </template>
 
 <script lang="ts">
-import { PlusOutlined } from "@ant-design/icons-vue";
 import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 import { useRoute } from "vue-router";
 
 import CategoryList from "@/components/Categories/CategoryList.vue";
-import { Category, Dialog, ICategory } from "@/interfaces";
+import { Category, CategoryDialog, ICategory } from "@/interfaces";
 
 @Options({
-  components: { CategoryList, PlusOutlined },
+  components: { CategoryList },
   created() {
     this.changeTab(this.tab);
   },
@@ -43,7 +42,7 @@ import { Category, Dialog, ICategory } from "@/interfaces";
 export default class CategoryTabs extends Vue {
   @Emit()
   private handleDialog(
-    dialogs: Partial<Record<Dialog, boolean>>,
+    dialogs: Partial<Record<CategoryDialog, boolean>>,
     category: ICategory
   ) {
     return { category, dialogs };

@@ -1,9 +1,15 @@
 export type Account = "accounts" | "savings" | "debts" | "finances";
 
+export type AccountDialog = "icon" | "upsert" | "remove";
+
 export interface IAccount {
   balance: number;
   currency_id: number;
   description: string | null;
+  icon: {
+    color: string;
+    component: string;
+  };
   title: string;
   type: number;
 }

@@ -5,11 +5,11 @@
       v-for="(operation, index) in operations"
       :key="index"
       :header="
-        new Date(operation.date).toLocaleDateString('ru-RU', {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
+        new Date(operation.date).toLocaleDateString(`ru-RU`, {
+          weekday: `long`,
+          year: `numeric`,
+          month: `long`,
+          day: `numeric`,
         })
       "
     >
@@ -20,14 +20,14 @@
         :data-source="operation.items"
       >
         <template #bodyCell="{ column, record }">
-          <template v-if="column.dataIndex === 'balance'">
+          <template v-if="column.dataIndex === `balance`">
             <a-typography-text
               :type="
-                record.type === $const('CATEGORY_INCOME') ? 'success' : 'danger'
+                record.type === $const(`CATEGORY_INCOME`) ? `success` : `danger`
               "
             >
               <span>
-                {{ record.type === $const("CATEGORY_INCOME") ? "+" : "-" }}
+                {{ record.type === $const(`CATEGORY_INCOME`) ? "+" : "-" }}
               </span>
               <span>{{ record.balance }}</span>
               <span class="pl-1">

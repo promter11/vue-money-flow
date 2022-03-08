@@ -19,7 +19,7 @@
 <script lang="ts">
 import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 
-import { Dialog, IAccount } from "@/interfaces";
+import { AccountDialog, IAccount } from "@/interfaces";
 
 @Options({
   name: "RemoveAccount",
@@ -27,7 +27,7 @@ import { Dialog, IAccount } from "@/interfaces";
 export default class RemoveAccount extends Vue {
   @Emit()
   private handleDialog(
-    dialogs: Partial<Record<Dialog, boolean>>,
+    dialogs: Partial<Record<AccountDialog, boolean>>,
     account: IAccount
   ) {
     return { account, dialogs };

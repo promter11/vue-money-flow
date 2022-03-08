@@ -38,8 +38,16 @@
   display: flex;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .flex-shrink-0 {
   flex-shrink: 0;
+}
+
+.justify-center {
+  justify-content: center;
 }
 
 .align-center {
@@ -63,6 +71,11 @@
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .text-center {
@@ -89,6 +102,14 @@
 
 .border-lg {
   border-radius: 0.5rem;
+}
+
+.opacity-50 {
+  opacity: 0.5;
+}
+
+.transparent {
+  background-color: transparent;
 }
 
 .white {

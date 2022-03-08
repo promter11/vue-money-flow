@@ -3,7 +3,7 @@
     <a-tab-pane key="accounts" tab="Обычный">
       <accounts-list
         :items="
-          items.accounts.filter(({ type }) => type === $const('ACCOUNT_COMMON'))
+          items.accounts.filter(({ type }) => type === $const(`ACCOUNT_COMMON`))
         "
         :currencies="currencies"
         :initial-account="initialAccount"
@@ -15,7 +15,7 @@
     <a-tab-pane key="debts" tab="Долговой">
       <accounts-list
         :items="
-          items.accounts.filter(({ type }) => type === $const('ACCOUNT_DEBT'))
+          items.accounts.filter(({ type }) => type === $const(`ACCOUNT_DEBT`))
         "
         :currencies="currencies"
         :initial-account="initialAccount"
@@ -27,7 +27,7 @@
     <a-tab-pane key="savings" tab="Накопительный">
       <accounts-list
         :items="
-          items.accounts.filter(({ type }) => type === $const('ACCOUNT_SAVING'))
+          items.accounts.filter(({ type }) => type === $const(`ACCOUNT_SAVING`))
         "
         :currencies="currencies"
         :initial-account="initialAccount"
@@ -50,7 +50,7 @@ import AccountsList from "@/components/Accounts/AccountsList.vue";
 import AccountsTable from "@/components/Accounts/AccountsTable.vue";
 import {
   Account,
-  Dialog,
+  AccountDialog,
   IAccount,
   IAccountData,
   ICurrency,
@@ -69,7 +69,7 @@ import {
 export default class AccountsTabs extends Vue {
   @Emit()
   private handleDialog(
-    dialogs: Partial<Record<Dialog, boolean>>,
+    dialogs: Partial<Record<AccountDialog, boolean>>,
     account: IAccount
   ) {
     return { account, dialogs };
