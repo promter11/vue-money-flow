@@ -16,6 +16,7 @@ import {
   GiftOutlined,
   GlobalOutlined,
   GoldOutlined,
+  LockOutlined,
   LogoutOutlined,
   MoreOutlined,
   PercentageOutlined,
@@ -50,6 +51,7 @@ createApp(App)
   .component("folder-open-outlined", FolderOpenOutlined)
   .component("gift-outlined", GiftOutlined)
   .component("global-outlined", GlobalOutlined)
+  .component("lock-outlined", LockOutlined)
   .component("gold-outlined", GoldOutlined)
   .component("logout-outlined", LogoutOutlined)
   .component("more-outlined", MoreOutlined)
