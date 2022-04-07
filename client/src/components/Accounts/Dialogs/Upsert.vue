@@ -15,7 +15,7 @@
       :validate-messages="validations"
     >
       <a-form-item label="Название" :rules="[{ required: true }]">
-        <a-input v-model:value="account.title" />
+        <a-input v-model:value="account.name" />
       </a-form-item>
       <a-form-item label="Описание">
         <a-textarea v-model:value="account.description" />
@@ -37,7 +37,7 @@
       </a-form-item>
       <a-form-item label="Валюта" :rules="[{ required: true }]">
         <a-select
-          v-model:value="account.currency_id"
+          v-model:value="account.currency"
           :options="currencies"
         ></a-select>
       </a-form-item>

@@ -44,8 +44,7 @@
         </a-list-item-meta>
         <strong class="pl-15">
           {{
-            (currencies.find(({ value }) => value === item.currency_id) ?? {})
-              .sign
+            (currencies.find(({ value }) => value === item.currency) ?? {}).sign
           }}
           {{ formatNumber(item.balance) }}
         </strong>

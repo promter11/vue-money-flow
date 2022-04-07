@@ -10,7 +10,7 @@
   >
     <a-typography-paragraph>
       Вы действительно хотите удалить счёт
-      <a-typography-text strong>{{ account.title }}</a-typography-text>
+      <a-typography-text strong>{{ account.name }}</a-typography-text>
       <a-typography-text>?</a-typography-text>
     </a-typography-paragraph>
   </a-modal>

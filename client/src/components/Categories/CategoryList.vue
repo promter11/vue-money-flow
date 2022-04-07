@@ -12,7 +12,7 @@
   <a-row :gutter="[16, 16]">
     <a-col
       v-for="category in categories"
-      :key="category.id"
+      :key="category._id"
       :xs="24"
       :sm="12"
       :lg="8"
@@ -45,10 +45,8 @@
               class="mr-1 text-2xl opacity-50 white--text"
             >
               {{
-                (
-                  currencies.find(({ value }) => value === user.currency_id) ??
-                  {}
-                ).sign
+                (currencies.find(({ value }) => value === user.currency) ?? {})
+                  .sign
               }}
             </a-typography-text>
             <a-typography-text strong class="text-2xl white--text">

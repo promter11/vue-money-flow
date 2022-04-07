@@ -1,9 +1,10 @@
 export interface IOperation {
+  _id: string;
   date: DateTimeString;
   items: {
     balance: number;
-    category_name: string;
-    currency_id: number;
+    category: number;
+    currency: number;
     type: number;
   }[];
 }

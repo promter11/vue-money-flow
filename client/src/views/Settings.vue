@@ -26,7 +26,7 @@
             <a-form-item :rules="[{ required: true }]">
               <a-space class="w-full" direction="vertical">
                 <a-typography-text strong>Имя</a-typography-text>
-                <a-input v-model:value="settings.first_name" />
+                <a-input v-model:value="settings.firstName" />
               </a-space>
             </a-form-item>
           </a-col>
@@ -34,7 +34,7 @@
             <a-form-item :rules="[{ required: true }]">
               <a-space class="w-full" direction="vertical">
                 <a-typography-text strong>Фамилия</a-typography-text>
-                <a-input v-model:value="settings.last_name" />
+                <a-input v-model:value="settings.lastName" />
               </a-space>
             </a-form-item>
           </a-col>
@@ -56,19 +56,8 @@
               <a-space class="w-full" direction="vertical">
                 <a-typography-text strong>Основная валюта</a-typography-text>
                 <a-select
-                  v-model:value="settings.currency_id"
+                  v-model:value="settings.currency"
                   :options="currencies"
-                />
-              </a-space>
-            </a-form-item>
-          </a-col>
-          <a-col :xs="24" :sm="12">
-            <a-form-item :rules="[{ required: true }]">
-              <a-space class="w-full" direction="vertical">
-                <a-typography-text strong>Язык</a-typography-text>
-                <a-select
-                  v-model:value="settings.language"
-                  :options="languages"
                 />
               </a-space>
             </a-form-item>
@@ -94,6 +83,7 @@
 </template>
 
 <script lang="ts">
+import cloneDeep from "lodash.clonedeep";
 import { Getter } from "s-vuex-class";
 import { Options, Vue } from "vue-property-decorator";
 
@@ -101,7 +91,7 @@ import { ICurrency, IUser } from "@/interfaces";
 
 @Options({
   created() {
-    this.settings = { ...this.user };
+    this.settings = cloneDeep(this.user);
   },
   name: "Settings",
 })
@@ -109,17 +99,12 @@ export default class Settings extends Vue {
   @Getter user!: IUser;
   @Getter currencies!: ICurrency[];
 
-  languages = [
-    { label: "Русский", value: "ru" },
-    { label: "English", value: "en" },
-  ];
   settings: IUser = {
     balance: 0,
-    currency_id: 2,
+    currency: 2,
     email: "",
-    first_name: "",
-    language: "ru",
-    last_name: "",
+    firstName: "",
+    lastName: "",
   };
   validations = {
     required: "${label} является обязательным полем!",

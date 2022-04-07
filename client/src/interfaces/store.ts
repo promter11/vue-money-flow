@@ -1,9 +1,9 @@
-import { ICurrency, IUser } from "@/interfaces";
+import { ICommon, IUser } from "@/interfaces";
 
 export interface RootState {}
 
 export interface ApplicationState {
-  currencies: ICurrency[];
+  common: ICommon;
 }
 
 export interface UserState {

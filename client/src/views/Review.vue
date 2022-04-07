@@ -18,8 +18,7 @@
         <a-statistic
           title="Баланс"
           :value="`${
-            (currencies.find(({ value }) => value === user.currency_id) ?? {})
-              .sign
+            (currencies.find(({ value }) => value === user.currency) ?? {}).sign
           } ${formatNumber(user.balance)}`"
         />
       </a-col>

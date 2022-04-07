@@ -1,6 +1,6 @@
 <template>
   <upsert-account
-    :types="types"
+    :types="accountTypes"
     :dialog="dialogs.upsert"
     :account="account"
     :currencies="currencies"
@@ -53,19 +53,18 @@ import AccountsService from "@/services/AccountsService";
     UpsertAccount,
   },
   async created() {
-    this.types = await AccountsService.getAccountTypes();
     this.items = await AccountsService.getAccountsData();
   },
   name: "Accounts",
 })
 export default class Accounts extends Vue {
+  @Getter accountTypes!: IAccountType[];
   @Getter currencies!: ICurrency[];
 
   items: IAccountData = {
     accounts: [],
     finances: [],
   };
-  types: IAccountType[] = [];
   dialogs: Record<AccountDialog, boolean> = {
     icon: false,
     remove: false,
@@ -75,14 +74,15 @@ export default class Accounts extends Vue {
 
   get initialAccount(): IAccount {
     return {
+      _id: "",
       balance: 0,
-      currency_id: 4,
-      description: null,
+      currency: 4,
+      description: "",
       icon: {
         color: "#000000",
         component: "credit-card-outlined",
       },
-      title: "",
+      name: "",
       type: 1,
     };
   }

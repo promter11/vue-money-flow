@@ -18,8 +18,8 @@ import { Options, Vue } from "vue-property-decorator";
 import TheFooter from "@/components/TheFooter.vue";
 import TheHeader from "@/components/TheHeader.vue";
 import TheSidebar from "@/components/TheSidebar.vue";
-import { ICurrency, IUser } from "@/interfaces";
-import { FETCH_CURRENCIES, FETCH_USER } from "@/store/types/actions";
+import { ICommon, IUser } from "@/interfaces";
+import { FETCH_COMMON_INFO, FETCH_USER } from "@/store/types/actions";
 
 @Options({
   components: {
@@ -28,13 +28,13 @@ import { FETCH_CURRENCIES, FETCH_USER } from "@/store/types/actions";
     TheSidebar,
   },
   created() {
-    this.fetchCurrencies();
+    this.fetchCommonInfo();
     this.fetchUser();
   },
   name: "Dashboard",
 })
 export default class Dashboard extends Vue {
-  @Action(FETCH_CURRENCIES) fetchCurrencies!: () => Promise<ICurrency[]>;
+  @Action(FETCH_COMMON_INFO) fetchCommonInfo!: () => Promise<ICommon>;
   @Action(FETCH_USER) fetchUser!: () => Promise<IUser>;
 
   collapsed = false;

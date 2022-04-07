@@ -1,71 +1,68 @@
-import { IAccountData, IAccountType } from "@/interfaces";
+import { IAccountData } from "@/interfaces";
 
 const AccountsService = {
-  async getAccountTypes(): Promise<IAccountType[]> {
-    return Promise.resolve([
-      { label: "Обычный", value: 1 },
-      { label: "Долговой", value: 2 },
-      { label: "Накопительный", value: 3 },
-    ]);
-  },
   async getAccountsData(): Promise<IAccountData> {
     return Promise.resolve({
       accounts: [
         {
+          _id: "1",
           balance: 1000.75,
-          currency_id: 1,
-          description: null,
+          currency: 1,
+          description: "",
           icon: {
             color: "#E91E63",
             component: "credit-card-outlined",
           },
-          title: "Счет 1",
+          name: "Счет 1",
           type: 1,
         },
         {
+          _id: "2",
           balance: 500,
-          currency_id: 3,
+          currency: 3,
           description: "China",
           icon: {
             color: "#00BCD4",
             component: "wallet-outlined",
           },
-          title: "Счет 2",
+          name: "Счет 2",
           type: 1,
         },
         {
+          _id: "3",
           balance: 1200,
-          currency_id: 1,
+          currency: 1,
           description: "Я хочу пиццы",
           icon: {
             color: "#FF9800",
             component: "gold-outlined",
           },
-          title: "Долг 1",
+          name: "Долг 1",
           type: 2,
         },
         {
+          _id: "4",
           balance: 250,
-          currency_id: 5,
-          description: null,
+          currency: 5,
+          description: "",
           icon: {
             color: "#9E9E9E",
             component: "bank-outlined",
           },
-          title: "Сбережение 1",
+          name: "Сбережение 1",
           type: 3,
         },
       ],
       finances: [
         {
           assets: 2000,
-          currency_name: "Российский рубль",
+          currency: 2,
           key: "ruble",
           liabilities: 0,
         },
         {
           assets: 500,
-          currency_name: "Доллар США",
+          currency: 3,
           key: "dollar",
           liabilities: 20,
         },

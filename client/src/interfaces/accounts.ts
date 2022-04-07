@@ -3,25 +3,21 @@ export type Account = "accounts" | "savings" | "debts" | "finances";
 export type AccountDialog = "icon" | "upsert" | "remove";
 
 export interface IAccount {
+  _id: string;
   balance: number;
-  currency_id: number;
-  description: string | null;
+  currency: number;
+  description: string;
   icon: {
     color: string;
     component: string;
   };
-  title: string;
+  name: string;
   type: number;
-}
-
-export interface IAccountType {
-  label: string;
-  value: number;
 }
 
 export interface IAccountTotal {
   assets: number;
-  currency_name: string;
+  currency: number;
   key: string;
   liabilities: number;
 }

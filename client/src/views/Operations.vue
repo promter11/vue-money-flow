@@ -33,9 +33,8 @@
               <span class="pl-1">
                 {{
                   (
-                    currencies.find(
-                      ({ value }) => value === record.currency_id
-                    ) ?? {}
+                    currencies.find(({ value }) => value === record.currency) ??
+                    {}
                   ).sign
                 }}
               </span>

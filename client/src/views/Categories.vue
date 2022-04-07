@@ -1,6 +1,6 @@
 <template>
   <upsert-category
-    :types="types"
+    :types="categoryTypes"
     :dialog="dialogs.upsert"
     :category="category"
     :initial-category="initialCategory"
@@ -28,7 +28,7 @@
       class="absolute right-0"
       title="Итоговый баланс"
       :value="`${
-        (currencies.find(({ value }) => value === user.currency_id) ?? {}).sign
+        (currencies.find(({ value }) => value === user.currency) ?? {}).sign
       }
     ${formatNumber(user.balance)}`"
     />
@@ -71,7 +71,6 @@ import { formatNumber } from "@/utils/format";
     UpsertCategory,
   },
   async created() {
-    this.types = await CategoryService.getCategoryTypes();
     this.categories = await CategoryService.getCategories();
   },
   methods: { formatNumber },
@@ -79,9 +78,9 @@ import { formatNumber } from "@/utils/format";
 })
 export default class Categories extends Vue {
   @Getter user!: IUser;
+  @Getter categoryTypes!: ICategoryType[];
   @Getter currencies!: ICurrency[];
 
-  types: ICategoryType[] = [];
   dialogs: Record<CategoryDialog, boolean> = {
     color: false,
     icon: false,
@@ -93,10 +92,10 @@ export default class Categories extends Vue {
 
   get initialCategory(): ICategory {
     return {
+      _id: "",
       balance: 0,
       color: "#000000",
       icon: "credit-card-outlined",
-      id: -1,
       name: "",
       type: 1,
     };

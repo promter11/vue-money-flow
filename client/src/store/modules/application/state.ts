@@ -1,5 +1,9 @@
 import { ApplicationState } from "@/interfaces";
 
 export const state: ApplicationState = {
-  currencies: [],
+  common: {
+    accountTypes: [],
+    categoryTypes: [],
+    currencies: [],
+  },
 };

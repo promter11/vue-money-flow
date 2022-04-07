@@ -41,6 +41,6 @@ import { IUser } from "@/interfaces";
 export default class TheHeader extends Vue {
   @Getter user!: IUser;
 
-  language = ["ru"];
+  language: Locale[] = ["ru"];
 }
 </script>
