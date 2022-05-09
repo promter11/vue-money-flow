@@ -25,7 +25,7 @@ const schema = new Schema({
     required: true,
   },
   icon: iconSchema,
-  title: {
+  name: {
     type: String,
     required: true,
   },

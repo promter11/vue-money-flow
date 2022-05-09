@@ -4,6 +4,7 @@ import {
   updateAccount,
   deleteAccount,
 } from "./account";
+import { login, logout, token, register } from "./auth";
 import {
   getCategories,
   createCategory,
@@ -23,6 +24,10 @@ export {
   createAccount,
   updateAccount,
   deleteAccount,
+  login,
+  logout,
+  token,
+  register,
   getCommonInfo,
   getCategories,
   createCategory,
