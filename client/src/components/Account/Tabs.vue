@@ -1,10 +1,8 @@
 <template>
   <a-tabs :animated="true" :active-key="tab" @change="changeTab">
-    <a-tab-pane key="accounts" tab="Обычный">
+    <a-tab-pane key="account" tab="Обычный">
       <accounts-list
-        :items="
-          items.accounts.filter(({ type }) => type === $const(`ACCOUNT_COMMON`))
-        "
+        :accounts="getAccountsByType($const('ACCOUNT_COMMON'))"
         :currencies="currencies"
         :initial-account="initialAccount"
         @handle-dialog="
@@ -12,11 +10,9 @@
         "
       />
     </a-tab-pane>
-    <a-tab-pane key="debts" tab="Долговой">
+    <a-tab-pane key="debt" tab="Долговой">
       <accounts-list
-        :items="
-          items.accounts.filter(({ type }) => type === $const(`ACCOUNT_DEBT`))
-        "
+        :accounts="getAccountsByType($const('ACCOUNT_DEBT'))"
         :currencies="currencies"
         :initial-account="initialAccount"
         @handle-dialog="
@@ -24,11 +20,9 @@
         "
       />
     </a-tab-pane>
-    <a-tab-pane key="savings" tab="Накопительный">
+    <a-tab-pane key="saving" tab="Накопительный">
       <accounts-list
-        :items="
-          items.accounts.filter(({ type }) => type === $const(`ACCOUNT_SAVING`))
-        "
+        :accounts="getAccountsByType($const('ACCOUNT_SAVING'))"
         :currencies="currencies"
         :initial-account="initialAccount"
         @handle-dialog="
@@ -36,8 +30,8 @@
         "
       />
     </a-tab-pane>
-    <a-tab-pane key="finances" tab="Финансы">
-      <accounts-table :items="items.finances" />
+    <a-tab-pane key="total" tab="Финансы">
+      <accounts-table :accounts="accounts" :currencies="currencies" />
     </a-tab-pane>
   </a-tabs>
 </template>
@@ -46,15 +40,9 @@
 import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 import { useRoute } from "vue-router";
 
-import AccountsList from "@/components/Accounts/AccountsList.vue";
-import AccountsTable from "@/components/Accounts/AccountsTable.vue";
-import {
-  Account,
-  AccountDialog,
-  IAccount,
-  IAccountData,
-  ICurrency,
-} from "@/interfaces";
+import AccountsList from "@/components/Account/List.vue";
+import AccountsTable from "@/components/Account/Table.vue";
+import { Account, AccountDialog, IAccount, ICurrency } from "@/interfaces";
 
 @Options({
   components: {
@@ -64,9 +52,9 @@ import {
   created() {
     this.changeTab(this.tab);
   },
-  name: "AccountsTabs",
+  name: "AccountTabs",
 })
-export default class AccountsTabs extends Vue {
+export default class AccountTabs extends Vue {
   @Emit()
   private handleDialog(
     dialogs: Partial<Record<AccountDialog, boolean>>,
@@ -75,15 +63,19 @@ export default class AccountsTabs extends Vue {
     return { account, dialogs };
   }
 
-  @Prop({ required: true }) items!: IAccountData;
+  @Prop({ required: true }) accounts!: IAccount[];
   @Prop({ required: true }) currencies!: ICurrency[];
   @Prop({ required: true }) initialAccount!: IAccount;
 
   tab = useRoute().query.type || "accounts";
 
-  private async changeTab(tab: Account) {
+  private changeTab(tab: Account) {
     this.tab = tab;
-    await this.$router.replace({ query: { type: tab } });
+    this.$router.replace({ query: { type: tab } });
+  }
+
+  private getAccountsByType(type: IAccount["type"]) {
+    return this.accounts.filter((account) => account.type === type);
   }
 }
 </script>

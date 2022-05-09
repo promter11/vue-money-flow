@@ -1,30 +1,33 @@
 <template>
-  <upsert-account
-    :types="accountTypes"
+  <account-dialog-icon
+    :dialog="dialogs.icon"
+    :account="account"
+    @handle-dialog="({ dialogs, account }) => handleDialog(dialogs, account)"
+  />
+  <account-dialog-upsert
     :dialog="dialogs.upsert"
     :account="account"
     :currencies="currencies"
     :initial-account="initialAccount"
     @handle-dialog="({ dialogs, account }) => handleDialog(dialogs, account)"
+    @upsert-account="account._id ? updateAccount() : createAccount()"
   />
-  <remove-account
-    :dialog="dialogs.remove"
+  <account-dialog-delete
+    :dialog="dialogs.delete"
     :account="account"
     :initial-account="initialAccount"
     @handle-dialog="({ dialogs, account }) => handleDialog(dialogs, account)"
+    @delete-account="deleteAccount"
   />
-  <icon-account
-    :dialog="dialogs.icon"
-    :account="account"
-    @handle-dialog="({ dialogs, account }) => handleDialog(dialogs, account)"
-  />
-  <h2 class="mb-0">Счета</h2>
-  <accounts-tabs
-    :items="items"
-    :currencies="currencies"
-    :initial-account="initialAccount"
-    @handle-dialog="({ dialogs, account }) => handleDialog(dialogs, account)"
-  />
+  <h2>Счета</h2>
+  <a-skeleton active :loading="isLoadingAccounts" :paragraph="{ rows: 4 }">
+    <account-tabs
+      :accounts="accounts"
+      :currencies="currencies"
+      :initial-account="initialAccount"
+      @handle-dialog="({ dialogs, account }) => handleDialog(dialogs, account)"
+    />
+  </a-skeleton>
 </template>
 
 <script lang="ts">
@@ -32,45 +35,36 @@ import cloneDeep from "lodash.clonedeep";
 import { Getter } from "s-vuex-class";
 import { Options, Vue } from "vue-property-decorator";
 
-import AccountsTabs from "@/components/Accounts/AccountsTabs.vue";
-import IconAccount from "@/components/Accounts/Dialogs/Icon.vue";
-import RemoveAccount from "@/components/Accounts/Dialogs/Remove.vue";
-import UpsertAccount from "@/components/Accounts/Dialogs/Upsert.vue";
-import {
-  AccountDialog,
-  IAccount,
-  IAccountData,
-  IAccountType,
-  ICurrency,
-} from "@/interfaces";
-import AccountsService from "@/services/AccountsService";
+import AccountDialogDelete from "@/components/Account/Dialogs/Delete.vue";
+import AccountDialogIcon from "@/components/Account/Dialogs/Icon.vue";
+import AccountDialogUpsert from "@/components/Account/Dialogs/Upsert.vue";
+import AccountTabs from "@/components/Account/Tabs.vue";
+import { AccountDialog, IAccount, ICurrency } from "@/interfaces";
+import AccountService from "@/services/AccountService";
 
 @Options({
   components: {
-    AccountsTabs,
-    IconAccount,
-    RemoveAccount,
-    UpsertAccount,
+    AccountDialogDelete,
+    AccountDialogIcon,
+    AccountDialogUpsert,
+    AccountTabs,
   },
   async created() {
-    this.items = await AccountsService.getAccountsData();
+    await this.getAccounts();
   },
   name: "Accounts",
 })
 export default class Accounts extends Vue {
-  @Getter accountTypes!: IAccountType[];
   @Getter currencies!: ICurrency[];
 
-  items: IAccountData = {
-    accounts: [],
-    finances: [],
-  };
   dialogs: Record<AccountDialog, boolean> = {
+    delete: false,
     icon: false,
-    remove: false,
     upsert: false,
   };
   account: IAccount = cloneDeep(this.initialAccount);
+  accounts: IAccount[] = [];
+  isLoadingAccounts = true;
 
   get initialAccount(): IAccount {
     return {
@@ -85,6 +79,40 @@ export default class Accounts extends Vue {
       name: "",
       type: 1,
     };
+  }
+
+  private async getAccounts() {
+    const { data } = await AccountService.getAccounts();
+    this.accounts = data;
+    this.isLoadingAccounts = false;
+  }
+
+  private async createAccount() {
+    const { _id, ...params } = this.account;
+    const { data } = await AccountService.createAccount(params);
+    this.accounts = [...this.accounts, data];
+  }
+
+  private async updateAccount() {
+    const { _id, ...params } = this.account;
+    const { data } = await AccountService.updateAccount(_id, params);
+    const index = this.accounts.findIndex(({ _id }) => _id === data._id);
+    this.accounts = [
+      ...this.accounts.slice(0, index),
+      data,
+      ...this.accounts.slice(index + 1),
+    ];
+  }
+
+  private async deleteAccount() {
+    await AccountService.deleteAccount(this.account._id);
+    const index = this.accounts.findIndex(
+      ({ _id }) => _id === this.account._id
+    );
+    this.accounts = [
+      ...this.accounts.slice(0, index),
+      ...this.accounts.slice(index + 1),
+    ];
   }
 
   private handleDialog(

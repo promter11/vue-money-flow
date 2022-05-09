@@ -2,9 +2,8 @@ import {
   Account,
   AccountDialog,
   IAccount,
-  IAccountData,
   IAccountTotal,
-} from "@/interfaces/accounts";
+} from "@/interfaces/account";
 import { Category, CategoryDialog, ICategory } from "@/interfaces/category";
 import {
   IAccountType,
@@ -23,7 +22,6 @@ export {
   Category,
   CategoryDialog,
   IAccount,
-  IAccountData,
   IAccountTotal,
   IAccountType,
   ICategory,

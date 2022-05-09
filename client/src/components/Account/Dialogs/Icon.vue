@@ -44,9 +44,9 @@ import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 import { AccountDialog, IAccount } from "@/interfaces";
 
 @Options({
-  name: "IconAccount",
+  name: "AccountDialogIcon",
 })
-export default class IconAccount extends Vue {
+export default class AccountDialogIcon extends Vue {
   @Emit()
   private handleDialog(
     dialogs: Partial<Record<AccountDialog, boolean>>,
@@ -58,7 +58,7 @@ export default class IconAccount extends Vue {
   @Prop({ required: true }) dialog!: boolean;
   @Prop({ required: true }) account!: IAccount;
 
-  tab = "icon";
+  tab: "icon" | "color" = "icon";
   icons = [
     "credit-card-outlined",
     "wallet-outlined",

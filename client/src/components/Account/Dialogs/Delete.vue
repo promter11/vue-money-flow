@@ -5,8 +5,8 @@
     cancel-text="Отмена"
     :visible="dialog"
     :ok-button-props="{ danger: true }"
-    @ok="handleDialog({ remove: false }, initialAccount)"
-    @cancel="handleDialog({ remove: false }, initialAccount)"
+    @ok="handleOk"
+    @cancel="handleDialog({ delete: false }, initialAccount)"
   >
     <a-typography-paragraph>
       Вы действительно хотите удалить счёт
@@ -22,9 +22,9 @@ import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 import { AccountDialog, IAccount } from "@/interfaces";
 
 @Options({
-  name: "RemoveAccount",
+  name: "AccountDialogDelete",
 })
-export default class RemoveAccount extends Vue {
+export default class AccountDialogDelete extends Vue {
   @Emit()
   private handleDialog(
     dialogs: Partial<Record<AccountDialog, boolean>>,
@@ -33,8 +33,18 @@ export default class RemoveAccount extends Vue {
     return { account, dialogs };
   }
 
+  @Emit()
+  private deleteAccount() {
+    return;
+  }
+
   @Prop({ required: true }) dialog!: boolean;
   @Prop({ required: true }) account!: IAccount;
   @Prop({ required: true }) initialAccount!: IAccount;
+
+  private handleOk() {
+    this.deleteAccount();
+    this.handleDialog({ delete: false }, this.initialAccount);
+  }
 }
 </script>

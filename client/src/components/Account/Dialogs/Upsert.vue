@@ -4,7 +4,7 @@
     ok-text="Добавить"
     cancel-text="Отмена"
     :visible="dialog"
-    @ok="handleDialog({ upsert: false }, initialAccount)"
+    @ok="handleOk"
     @cancel="handleDialog({ upsert: false }, initialAccount)"
   >
     <a-form
@@ -33,7 +33,10 @@
         </a-space>
       </a-form-item>
       <a-form-item label="Тип" :rules="[{ required: true }]">
-        <a-select v-model:value="account.type" :options="types"></a-select>
+        <a-select
+          v-model:value="account.type"
+          :options="accountTypes"
+        ></a-select>
       </a-form-item>
       <a-form-item label="Валюта" :rules="[{ required: true }]">
         <a-select
@@ -49,14 +52,15 @@
 </template>
 
 <script lang="ts">
+import { Getter } from "s-vuex-class";
 import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 
 import { AccountDialog, IAccount, IAccountType, ICurrency } from "@/interfaces";
 
 @Options({
-  name: "UpsertAccount",
+  name: "AccountDialogUpsert",
 })
-export default class UpsertAccount extends Vue {
+export default class AccountDialogUpsert extends Vue {
   @Emit()
   private handleDialog(
     dialogs: Partial<Record<AccountDialog, boolean>>,
@@ -65,14 +69,25 @@ export default class UpsertAccount extends Vue {
     return { account, dialogs };
   }
 
-  @Prop({ required: true }) types!: IAccountType[];
+  @Emit()
+  private upsertAccount() {
+    return;
+  }
+
   @Prop({ required: true }) dialog!: boolean;
   @Prop({ required: true }) account!: IAccount;
   @Prop({ required: true }) currencies!: ICurrency[];
   @Prop({ required: true }) initialAccount!: IAccount;
 
+  @Getter accountTypes!: IAccountType[];
+
   validations = {
     required: "${label} является обязательным полем!",
   };
+
+  private handleOk() {
+    this.upsertAccount();
+    this.handleDialog({ upsert: false }, this.initialAccount);
+  }
 }
 </script>

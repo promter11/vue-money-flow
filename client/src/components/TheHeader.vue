@@ -11,7 +11,7 @@
                   <user-outlined />
                 </template>
               </a-avatar>
-              <span>{{ user.first_name }} {{ user.last_name }}</span>
+              <span>{{ user.firstName }} {{ user.lastName }}</span>
               <down-outlined class="text-xs" />
             </a-space>
           </a-typography-link>
@@ -40,7 +40,5 @@ import { IUser } from "@/interfaces";
 })
 export default class TheHeader extends Vue {
   @Getter user!: IUser;
-
-  language: Locale[] = ["ru"];
 }
 </script>
