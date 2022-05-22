@@ -1,75 +1,44 @@
 import { Request, Response } from "express";
-import jwt from "jsonwebtoken";
 
-import UserModel from "../models/user";
-
-const refreshTokens = new Set();
+import UserService from "../services/user";
 
 const login = async (req: Request, res: Response) => {
   try {
-    const user = await UserModel.findOne({ email: req.body.email });
+    const data = await UserService.login(req.body.email, req.body.password);
 
-    if (!user) {
-      return res.status(404).send("User does not exist");
-    }
+    res.cookie("refreshToken", data.refreshToken, {
+      maxAge: +process.env.REFRESH_TOKEN_EXPIRES_IN * 1000,
+      httpOnly: true,
+    });
 
-    if (req.body.password !== user.password) {
-      return res.status(422).send("Incorrect password");
-    }
-
-    const accessToken = jwt.sign(
-      { iat: Date.now(), email: user.email },
-      process.env.ACCESS_TOKEN_SECRET_KEY as string
-    );
-    const refreshToken = jwt.sign(
-      { iat: Date.now(), email: user.email },
-      process.env.ACCESS_TOKEN_SECRET_KEY as string,
-      { expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN }
-    );
-
-    refreshTokens.add(refreshToken);
-
-    res.status(201).json({ accessToken, refreshToken });
+    return res.status(201).json(data);
   } catch (error) {
     res.status(500).json(error);
   }
 };
 
 const logout = async (req: Request, res: Response) => {
-  refreshTokens.delete(req.body.token);
+  try {
+    await UserService.logout(req.cookies.refreshToken);
 
-  res.send("Logout successful");
+    res.clearCookie("refreshToken");
+
+    return res.send("Logout successful");
+  } catch (error) {
+    res.status(500).json(error);
+  }
 };
 
-const token = (req: Request, res: Response) => {
+const refresh = async (req: Request, res: Response) => {
   try {
-    const { token }: { token: string } = req.body;
+    const data = await UserService.refresh(req.cookies.refreshToken);
 
-    if (!token) {
-      return res.status(401).send();
-    }
+    res.cookie("refreshToken", data.refreshToken, {
+      maxAge: +process.env.REFRESH_TOKEN_EXPIRES_IN * 1000,
+      httpOnly: true,
+    });
 
-    if (!refreshTokens.has(token)) {
-      return res.status(403).send();
-    }
-
-    jwt.verify(
-      token,
-      process.env.REFRESH_TOKEN_SECRET_KEY as string,
-      (err, user: any) => {
-        if (err) {
-          return res.status(403).send();
-        }
-
-        res.status(201).json({
-          accessToken: jwt.sign(
-            { iat: Date.now(), email: user.email },
-            process.env.ACCESS_TOKEN_SECRET_KEY as string,
-            { expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN }
-          ),
-        });
-      }
-    );
+    return res.status(201).json(data);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -77,20 +46,17 @@ const token = (req: Request, res: Response) => {
 
 const register = async (req: Request, res: Response) => {
   try {
-    const user = new UserModel(req.body);
+    const data = await UserService.register(req.body.email, req.body.password);
 
-    await user.save();
-
-    res.status(201).json({
-      accessToken: jwt.sign(
-        { iat: Date.now(), email: user.email },
-        process.env.ACCESS_TOKEN_SECRET_KEY as string,
-        { expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN }
-      ),
+    res.cookie("refreshToken", data.refreshToken, {
+      maxAge: +process.env.REFRESH_TOKEN_EXPIRES_IN * 1000,
+      httpOnly: true,
     });
+
+    return res.status(201).json(data);
   } catch (error) {
     res.status(500).json(error);
   }
 };
 
-export { login, logout, token, register };
+export { login, logout, refresh, register };

@@ -1,15 +1,20 @@
 import { Schema, model } from "mongoose";
 
-const iconSchema = new Schema({
-  color: {
-    type: String,
-    required: true,
+const iconSchema = new Schema(
+  {
+    color: {
+      type: String,
+      default: "#000000",
+      required: false,
+    },
+    component: {
+      type: String,
+      default: "credit-card-outlined",
+      required: false,
+    },
   },
-  component: {
-    type: String,
-    required: true,
-  },
-});
+  { _id: false }
+);
 
 const schema = new Schema({
   balance: {
@@ -22,7 +27,8 @@ const schema = new Schema({
   },
   description: {
     type: String,
-    required: true,
+    default: "",
+    required: false,
   },
   icon: iconSchema,
   name: {

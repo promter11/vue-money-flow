@@ -1,4 +1,5 @@
 import cors from "cors";
+import cookies from "cookie-parser";
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
@@ -9,19 +10,18 @@ dotenv.config();
 
 const database = mongoose.connection;
 
-mongoose.connect(<string>process.env.DATABASE_URL);
+mongoose.connect(process.env.DATABASE_URL);
 
-database.on("error", (error) => {
-  console.log(`[db]: ${error}`);
-});
+database.on("error", (error) => console.log(`[db]: ${error}`));
 
-database.once("connected", () => {
-  console.log("[db]: Database connection successful");
-});
+database.once("connected", () =>
+  console.log("[db]: Database connection successful")
+);
 
 const app = express();
 
 app.use(cors());
+app.use(cookies());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

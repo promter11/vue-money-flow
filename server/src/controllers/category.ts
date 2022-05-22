@@ -6,7 +6,7 @@ const getCategories = async (req: Request, res: Response) => {
   try {
     const data = await CategoryModel.find();
 
-    res.status(200).json(data);
+    res.send(data);
   } catch (error) {
     res.status(500).json(error);
   }

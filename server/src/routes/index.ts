@@ -7,8 +7,9 @@ import {
   deleteAccount,
   login,
   logout,
-  token,
+  refresh,
   register,
+  updateUser,
   getCommonInfo,
   getCategories,
   createCategory,
@@ -19,26 +20,27 @@ import {
   updateOperation,
   deleteOperation,
 } from "../controllers";
-import { authenticateJWT } from "../middlewares";
+import { authenticate } from "../middlewares";
 
 const router = Router();
 
-router.get("/accounts", authenticateJWT, getAccounts);
-router.post("/accounts", authenticateJWT, createAccount);
-router.patch("/accounts/:id", authenticateJWT, updateAccount);
-router.delete("/accounts/:id", authenticateJWT, deleteAccount);
+router.get("/accounts", authenticate, getAccounts);
+router.post("/accounts", authenticate, createAccount);
+router.patch("/accounts/:id", authenticate, updateAccount);
+router.delete("/accounts/:id", authenticate, deleteAccount);
 router.post("/auth/login", login);
 router.post("/auth/logout", logout);
-router.post("/auth/token", token);
+router.get("/auth/refresh", refresh);
 router.post("/auth/register", register);
-router.get("/common", authenticateJWT, getCommonInfo);
-router.get("/categories", authenticateJWT, getCategories);
-router.post("/categories", authenticateJWT, createCategory);
-router.patch("/categories/:id", authenticateJWT, updateCategory);
-router.delete("/categories/:id", authenticateJWT, deleteCategory);
-router.get("/operations", authenticateJWT, getOperations);
-router.post("/operations", authenticateJWT, createOperation);
-router.put("/operations/:id", authenticateJWT, updateOperation);
-router.delete("/operations/:id", authenticateJWT, deleteOperation);
+router.get("/common", authenticate, getCommonInfo);
+router.get("/categories", authenticate, getCategories);
+router.post("/categories", authenticate, createCategory);
+router.patch("/categories/:id", authenticate, updateCategory);
+router.delete("/categories/:id", authenticate, deleteCategory);
+router.get("/operations", authenticate, getOperations);
+router.post("/operations", authenticate, createOperation);
+router.put("/operations/:id", authenticate, updateOperation);
+router.delete("/operations/:id", authenticate, deleteOperation);
+router.put("/users/:id", authenticate, updateUser);
 
 export default router;

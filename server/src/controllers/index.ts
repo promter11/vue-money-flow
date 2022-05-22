@@ -4,7 +4,7 @@ import {
   updateAccount,
   deleteAccount,
 } from "./account";
-import { login, logout, token, register } from "./auth";
+import { login, logout, refresh, register } from "./auth";
 import {
   getCategories,
   createCategory,
@@ -18,6 +18,7 @@ import {
   deleteOperation,
 } from "./operation";
 import { getCommonInfo } from "./common";
+import { updateUser } from "./user";
 
 export {
   getAccounts,
@@ -26,7 +27,7 @@ export {
   deleteAccount,
   login,
   logout,
-  token,
+  refresh,
   register,
   getCommonInfo,
   getCategories,
@@ -37,4 +38,5 @@ export {
   createOperation,
   updateOperation,
   deleteOperation,
+  updateUser,
 };

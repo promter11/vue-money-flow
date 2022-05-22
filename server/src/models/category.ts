@@ -7,11 +7,13 @@ const schema = new Schema({
   },
   color: {
     type: String,
-    required: true,
+    default: "#000000",
+    required: false,
   },
   icon: {
     type: String,
-    required: true,
+    default: "credit-card-outlined",
+    required: false,
   },
   name: {
     type: String,

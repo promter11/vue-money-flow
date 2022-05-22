@@ -10,9 +10,9 @@ const getCommonInfo = async (req: Request, res: Response) => {
     const categoryTypes = await CategoryTypesModel.find();
     const currencies = await CurrenciesModel.find();
 
-    res.status(200).json({ accountTypes, categoryTypes, currencies });
+    res.send({ accountTypes, categoryTypes, currencies });
   } catch (error) {
-    res.status(500).json({ msg: error });
+    res.status(500).json(error);
   }
 };
 

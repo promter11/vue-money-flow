@@ -6,7 +6,7 @@ const getOperations = async (req: Request, res: Response) => {
   try {
     const data = await OperationModel.find();
 
-    res.status(200).json(data);
+    res.send(data);
   } catch (error) {
     res.status(500).json(error);
   }

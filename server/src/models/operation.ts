@@ -1,23 +1,26 @@
 import { Schema, model } from "mongoose";
 
-const itemSchema = new Schema({
-  balance: {
-    type: Number,
-    required: true,
+const itemSchema = new Schema(
+  {
+    balance: {
+      type: Number,
+      required: true,
+    },
+    category_name: {
+      type: String,
+      required: true,
+    },
+    currency: {
+      type: Number,
+      required: true,
+    },
+    type: {
+      type: Number,
+      required: true,
+    },
   },
-  category_name: {
-    type: String,
-    required: true,
-  },
-  currency: {
-    type: Number,
-    required: true,
-  },
-  type: {
-    type: Number,
-    required: true,
-  },
-});
+  { _id: false }
+);
 
 const schema = new Schema({
   date: {

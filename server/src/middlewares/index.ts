@@ -1,24 +1,26 @@
-import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import { NextFunction, Request, Response } from "express";
 
-const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
-  const authHeader = req.headers.authorization;
+import TokenService from "../services/token";
 
-  if (!authHeader) {
-    return res.status(401).send();
-  }
+const authenticate = (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const authHeader = req.headers.authorization;
+    const accessToken = authHeader?.split(" ")[1];
 
-  jwt.verify(
-    authHeader.split(" ")[1],
-    process.env.ACCESS_TOKEN_SECRET_KEY as string,
-    (err) => {
-      if (err) {
-        return res.status(403).send();
-      }
-
-      next();
+    if (!authHeader || !accessToken) {
+      return res.status(401).send("User is not authorized");
     }
-  );
+
+    if (
+      !TokenService.validate(accessToken, process.env.ACCESS_TOKEN_SECRET_KEY)
+    ) {
+      return res.status(401).send("User is not authorized");
+    }
+
+    next();
+  } catch (error) {
+    next(error);
+  }
 };
 
-export { authenticateJWT };
+export { authenticate };
