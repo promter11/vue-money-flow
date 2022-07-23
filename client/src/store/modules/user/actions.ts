@@ -7,7 +7,7 @@ import { SET_USER } from "@/store/types/mutations";
 
 export const actions: ActionTree<UserState, RootState> = {
   async [FETCH_USER]({ commit }) {
-    const currencies = await UserService.getUser();
-    commit(SET_USER, currencies);
+    const user = await UserService.getUser();
+    commit(SET_USER, user);
   },
 };

@@ -12,14 +12,11 @@
 </template>
 
 <script lang="ts">
-import { Action } from "s-vuex-class";
 import { Options, Vue } from "vue-property-decorator";
 
 import TheFooter from "@/components/TheFooter.vue";
 import TheHeader from "@/components/TheHeader.vue";
 import TheSidebar from "@/components/TheSidebar.vue";
-import { ICommon, IUser } from "@/interfaces";
-import { FETCH_COMMON_INFO, FETCH_USER } from "@/store/types/actions";
 
 @Options({
   components: {
@@ -27,16 +24,9 @@ import { FETCH_COMMON_INFO, FETCH_USER } from "@/store/types/actions";
     TheHeader,
     TheSidebar,
   },
-  created() {
-    this.fetchCommonInfo();
-    this.fetchUser();
-  },
   name: "Dashboard",
 })
 export default class Dashboard extends Vue {
-  @Action(FETCH_COMMON_INFO) fetchCommonInfo!: () => Promise<ICommon>;
-  @Action(FETCH_USER) fetchUser!: () => Promise<IUser>;
-
   collapsed = false;
 
   private toggleSidebar() {

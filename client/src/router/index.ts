@@ -1,5 +1,15 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import {
+  createRouter,
+  createWebHistory,
+  NavigationGuardNext,
+  RouteLocationNormalized,
+  RouteRecordRaw,
+} from "vue-router";
+import { Store } from "vuex";
 
+import { RootState } from "@/interfaces";
+import { authMiddleware } from "@/router/middlewares";
+import store from "@/store";
 import Accounts from "@/views/Accounts.vue";
 import Categories from "@/views/Categories.vue";
 import Dashboard from "@/views/Dashboard.vue";
@@ -15,31 +25,47 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         component: Accounts,
+        meta: {
+          middlewares: [authMiddleware],
+        },
         name: "Accounts",
         path: "/accounts",
       },
       {
         component: Categories,
+        meta: {
+          middlewares: [authMiddleware],
+        },
         name: "Categories",
         path: "/categories",
       },
       {
         component: Operations,
+        meta: {
+          middlewares: [authMiddleware],
+        },
         name: "Operations",
         path: "/operations",
       },
       {
         component: Review,
+        meta: {
+          middlewares: [authMiddleware],
+        },
         name: "Review",
         path: "/review",
       },
       {
         component: Settings,
+        meta: {
+          middlewares: [authMiddleware],
+        },
         name: "Settings",
         path: "/settings",
       },
     ],
     component: Dashboard,
+    name: "Dashboard",
     path: "",
     redirect: "/accounts",
   },
@@ -61,8 +87,32 @@ const routes: RouteRecordRaw[] = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (!to.meta.middlewares) {
+    return next();
+  }
+
+  for (const middleware of (
+    to.meta as {
+      middlewares: (({
+        from,
+        next,
+        to,
+        store,
+      }: {
+        from: RouteLocationNormalized;
+        next: NavigationGuardNext;
+        store: Store<RootState>;
+        to: RouteLocationNormalized;
+      }) => void)[];
+    }
+  ).middlewares) {
+    middleware({ from, next, store, to });
+  }
 });
 
 export default router;

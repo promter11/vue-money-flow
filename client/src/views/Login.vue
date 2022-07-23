@@ -11,6 +11,7 @@
                 class="mt-6"
                 autocomplete="off"
                 :model="form"
+                @submit="submit"
               >
                 <a-form-item>
                   <a-input v-model:value="form.email" placeholder="E-mail">
@@ -58,13 +59,22 @@
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
 
+import store from "@/store";
+import { FETCH_USER, LOGIN } from "@/store/types/actions";
+
 @Options({
   name: "Login",
 })
 export default class Login extends Vue {
-  form: Record<"email" | "password", string> = {
-    email: "",
-    password: "",
+  form = {
+    email: "qwerty@onlinesup.com",
+    password: "qwerty",
   };
+
+  private async submit() {
+    await store.dispatch(LOGIN, this.form);
+    await store.dispatch(FETCH_USER);
+    await this.$router.push({ name: "Dashboard" });
+  }
 }
 </script>

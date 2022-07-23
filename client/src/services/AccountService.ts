@@ -3,11 +3,11 @@ import ApiService from "@/services/ApiService";
 
 class AccountService {
   async getAccounts() {
-    return ApiService.get<void, { data: IAccount[] }>("/accounts");
+    return ApiService.get<void, { data: IAccount[] }>("/api/accounts");
   }
 
   async createAccount(params: Omit<IAccount, "_id">) {
-    return ApiService.post<void, { data: IAccount }>("/accounts", params);
+    return ApiService.post<void, { data: IAccount }>("/api/accounts", params);
   }
 
   async updateAccount(
@@ -15,13 +15,13 @@ class AccountService {
     params: Partial<Omit<IAccount, "_id">>
   ) {
     return ApiService.patch<void, { data: IAccount }>(
-      `/accounts/${id}`,
+      `/api/accounts/${id}`,
       params
     );
   }
 
   async deleteAccount(id: IAccount["_id"]) {
-    return ApiService.delete<void, void>(`/accounts/${id}`);
+    return ApiService.delete<void, void>(`/api/accounts/${id}`);
   }
 }
 

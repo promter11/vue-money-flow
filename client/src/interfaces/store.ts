@@ -9,3 +9,7 @@ export interface ApplicationState {
 export interface UserState {
   user: IUser;
 }
+
+export interface AuthState {
+  isAuth: boolean;
+}

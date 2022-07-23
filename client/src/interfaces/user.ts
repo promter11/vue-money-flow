@@ -1,6 +1,6 @@
 export interface IUser {
   balance: number;
-  currency: number;
+  currency: Currency;
   email: string;
   firstName: string;
   lastName: string;

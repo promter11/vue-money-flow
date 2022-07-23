@@ -3,7 +3,7 @@ import ApiService from "@/services/ApiService";
 
 class ApplicationService {
   async getCommonInfo() {
-    return ApiService.get<void, { data: ICommon }>("/common");
+    return ApiService.get<void, { data: ICommon }>("/api/common");
   }
 }
 

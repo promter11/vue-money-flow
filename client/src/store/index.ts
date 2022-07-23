@@ -1,12 +1,12 @@
 import Vuex, { StoreOptions } from "vuex";
 
 import { RootState } from "@/interfaces";
-import { application } from "@/store/modules/application";
-import { user } from "@/store/modules/user";
+import { application, auth, user } from "@/store/modules";
 
 const store: StoreOptions<RootState> = {
   modules: {
     application,
+    auth,
     user,
   },
 };

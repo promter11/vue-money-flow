@@ -17,7 +17,7 @@
           </a-typography-link>
           <template #overlay>
             <a-menu>
-              <a-menu-item>
+              <a-menu-item @click="logout">
                 <logout-outlined />
                 <span class="ml-4">Выход</span>
               </a-menu-item>
@@ -34,11 +34,18 @@ import { Getter } from "s-vuex-class";
 import { Options, Vue } from "vue-property-decorator";
 
 import { IUser } from "@/interfaces";
+import store from "@/store";
+import { LOGOUT } from "@/store/types/actions";
 
 @Options({
   name: "TheHeader",
 })
 export default class TheHeader extends Vue {
   @Getter user!: IUser;
+
+  private async logout() {
+    await store.dispatch(LOGOUT);
+    await this.$router.push({ name: "Login" });
+  }
 }
 </script>

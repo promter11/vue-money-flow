@@ -12,13 +12,19 @@ import {
   ICurrency,
 } from "@/interfaces/common";
 import { IOperation } from "@/interfaces/operations";
-import { ApplicationState, RootState, UserState } from "@/interfaces/store";
+import {
+  ApplicationState,
+  AuthState,
+  RootState,
+  UserState,
+} from "@/interfaces/store";
 import { IUser } from "@/interfaces/user";
 
 export {
   Account,
   AccountDialog,
   ApplicationState,
+  AuthState,
   Category,
   CategoryDialog,
   IAccount,
