@@ -2,7 +2,7 @@ import { IAccount } from "@/interfaces";
 import ApiService from "@/services/ApiService";
 
 class AccountService {
-  async getAccounts() {
+  async fetchAccounts() {
     return ApiService.get<void, { data: IAccount[] }>("/api/accounts");
   }
 

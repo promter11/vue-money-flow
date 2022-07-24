@@ -4,8 +4,8 @@
     ok-text="Добавить"
     cancel-text="Отмена"
     :visible="dialog"
-    @ok="handleDialog({ upsert: false }, initialCategory)"
-    @cancel="handleDialog({ upsert: false }, initialCategory)"
+    @ok="handleDialogs({ upsert: false }, initialCategory)"
+    @cancel="handleDialogs({ upsert: false }, initialCategory)"
   >
     <a-form
       name="upsert-form"
@@ -30,7 +30,7 @@
               <component :is="category.icon" />
             </template>
           </a-avatar>
-          <a-button @click="handleDialog({ icon: true }, category)">
+          <a-button @click="handleDialogs({ icon: true }, category)">
             Изменить
           </a-button>
         </a-space>
@@ -38,7 +38,7 @@
       <a-form-item label="Цвет">
         <a-space>
           <a-avatar :style="{ backgroundColor: category.color }"></a-avatar>
-          <a-button @click="handleDialog({ color: true }, category)">
+          <a-button @click="handleDialogs({ color: true }, category)">
             Изменить
           </a-button>
         </a-space>
@@ -50,21 +50,20 @@
 <script lang="ts">
 import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 
-import { CategoryDialog, ICategory, ICategoryType } from "@/interfaces";
+import { CategoryDialog, ICategory } from "@/interfaces";
 
 @Options({
-  name: "UpsertCategory",
+  name: "CategoryDialogUpsert",
 })
-export default class UpsertCategory extends Vue {
+export default class CategoryDialogUpsert extends Vue {
   @Emit()
-  private handleDialog(
+  private handleDialogs(
     dialogs: Partial<Record<CategoryDialog, boolean>>,
     category: ICategory
   ) {
     return { category, dialogs };
   }
 
-  @Prop({ required: true }) types!: ICategoryType[];
   @Prop({ required: true }) dialog!: boolean;
   @Prop({ required: true }) category!: ICategory;
   @Prop({ required: true }) initialCategory!: ICategory;

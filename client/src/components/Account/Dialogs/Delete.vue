@@ -6,7 +6,7 @@
     :visible="dialog"
     :ok-button-props="{ danger: true }"
     @ok="handleOk"
-    @cancel="handleDialog({ delete: false }, initialAccount)"
+    @cancel="handleDialogs({ delete: false }, initialAccount)"
   >
     <a-typography-paragraph>
       Вы действительно хотите удалить счёт
@@ -26,7 +26,7 @@ import { AccountDialog, IAccount } from "@/interfaces";
 })
 export default class AccountDialogDelete extends Vue {
   @Emit()
-  private handleDialog(
+  private handleDialogs(
     dialogs: Partial<Record<AccountDialog, boolean>>,
     account: IAccount
   ) {
@@ -44,7 +44,7 @@ export default class AccountDialogDelete extends Vue {
 
   private handleOk() {
     this.deleteAccount();
-    this.handleDialog({ delete: false }, this.initialAccount);
+    this.handleDialogs({ delete: false }, this.initialAccount);
   }
 }
 </script>

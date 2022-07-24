@@ -5,7 +5,7 @@
     :width="320"
     :footer="null"
     :visible="dialog"
-    @cancel="handleDialog({ icon: false }, account)"
+    @cancel="handleDialogs({ icon: false }, account)"
   >
     <a-space>
       <a-avatar :style="{ backgroundColor: account.icon.color }">
@@ -48,7 +48,7 @@ import { AccountDialog, IAccount } from "@/interfaces";
 })
 export default class AccountDialogIcon extends Vue {
   @Emit()
-  private handleDialog(
+  private handleDialogs(
     dialogs: Partial<Record<AccountDialog, boolean>>,
     account: IAccount
   ) {

@@ -1,6 +1,11 @@
+import { IUser } from "@/interfaces";
 import ApiService from "@/services/ApiService";
 
 class AuthService {
+  async me() {
+    return ApiService.get<void, { data: IUser }>("/api/auth/me");
+  }
+
   async login(params: { email: string; password: string }) {
     return ApiService.post<
       void,

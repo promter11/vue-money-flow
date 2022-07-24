@@ -1,5 +1,5 @@
 <template>
-  <h2 class="mb-4">Настройки</h2>
+  <h2>Настройки</h2>
   <a-row>
     <a-col :span="24">
       <a-space size="middle">
@@ -56,7 +56,7 @@
               <a-space class="w-full" direction="vertical">
                 <a-typography-text strong>Основная валюта</a-typography-text>
                 <a-select
-                  v-model:value="settings.currency"
+                  v-model:value="settings.balance.currency"
                   :options="currencies"
                 />
               </a-space>
@@ -83,11 +83,11 @@
 </template>
 
 <script lang="ts">
-import cloneDeep from "lodash.clonedeep";
+import cloneDeep from "lodash/cloneDeep";
 import { Getter } from "s-vuex-class";
 import { Options, Vue } from "vue-property-decorator";
 
-import { ICurrency, IUser } from "@/interfaces";
+import { IUser } from "@/interfaces";
 
 @Options({
   created() {
@@ -97,11 +97,12 @@ import { ICurrency, IUser } from "@/interfaces";
 })
 export default class Settings extends Vue {
   @Getter user!: IUser;
-  @Getter currencies!: ICurrency[];
 
   settings: IUser = {
-    balance: 0,
-    currency: 2,
+    balance: {
+      currency: "RUB",
+      value: 0,
+    },
     email: "",
     firstName: "",
     lastName: "",

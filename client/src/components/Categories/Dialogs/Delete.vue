@@ -5,8 +5,8 @@
     cancel-text="Отмена"
     :visible="dialog"
     :ok-button-props="{ danger: true }"
-    @ok="handleDialogs({ remove: false }, initialCategory)"
-    @cancel="handleDialogs({ remove: false }, initialCategory)"
+    @ok="handleDialogs({ delete: false }, initialCategory)"
+    @cancel="handleDialogs({ delete: false }, initialCategory)"
   >
     <a-typography-paragraph>
       Вы действительно хотите удалить категорию

@@ -2,7 +2,7 @@
   <a-button
     type="primary"
     class="mb-4"
-    @click="handleDialog({ upsert: true }, initialAccount)"
+    @click="handleDialogs({ upsert: true }, initialAccount)"
   >
     <template #icon>
       <plus-outlined />
@@ -19,11 +19,11 @@
               <more-outlined class="text-base" />
               <template #overlay>
                 <a-menu>
-                  <a-menu-item @click="handleDialog({ upsert: true }, item)">
+                  <a-menu-item @click="handleDialogs({ upsert: true }, item)">
                     <edit-outlined />
                     <span class="ml-4">Изменить</span>
                   </a-menu-item>
-                  <a-menu-item @click="handleDialog({ delete: true }, item)">
+                  <a-menu-item @click="handleDialogs({ delete: true }, item)">
                     <delete-outlined />
                     <span class="ml-4">Удалить</span>
                   </a-menu-item>
@@ -42,12 +42,7 @@
             </a-avatar>
           </template>
         </a-list-item-meta>
-        <strong class="pl-15">
-          {{
-            (currencies.find(({ value }) => value === item.currency) ?? {}).sign
-          }}
-          {{ formatNumber(item.balance) }}
-        </strong>
+        <strong class="pl-15">{{ formatNumber(item.balance) }}</strong>
       </a-list-item>
     </template>
   </a-list>
@@ -56,7 +51,7 @@
 <script lang="ts">
 import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 
-import { AccountDialog, IAccount, ICurrency } from "@/interfaces";
+import { AccountDialog, IAccount } from "@/interfaces";
 import { formatNumber } from "@/utils/format";
 
 @Options({
@@ -65,7 +60,7 @@ import { formatNumber } from "@/utils/format";
 })
 export default class AccountList extends Vue {
   @Emit()
-  private handleDialog(
+  private handleDialogs(
     dialogs: Partial<Record<AccountDialog, boolean>>,
     account: IAccount
   ) {
@@ -73,7 +68,6 @@ export default class AccountList extends Vue {
   }
 
   @Prop({ required: true }) accounts!: IAccount[];
-  @Prop({ required: true }) currencies!: ICurrency[];
   @Prop({ required: true }) initialAccount!: IAccount;
 }
 </script>

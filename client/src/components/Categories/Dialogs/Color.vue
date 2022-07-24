@@ -5,7 +5,7 @@
     :width="320"
     :footer="null"
     :visible="dialog"
-    @cancel="handleDialog({ color: false }, category)"
+    @cancel="handleDialogs({ color: false }, category)"
   >
     <a-space class="mb-4">
       <a-avatar :style="{ backgroundColor: category.color }"></a-avatar>
@@ -27,11 +27,11 @@ import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 import { CategoryDialog, ICategory } from "@/interfaces";
 
 @Options({
-  name: "ColorCategory",
+  name: "CategoryDialogColor",
 })
-export default class ColorCategory extends Vue {
+export default class CategoryDialogColor extends Vue {
   @Emit()
-  private handleDialog(
+  private handleDialogs(
     dialogs: Partial<Record<CategoryDialog, boolean>>,
     category: ICategory
   ) {

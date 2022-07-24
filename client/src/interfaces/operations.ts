@@ -1,10 +1,13 @@
+import { Category, Currency } from "@/interfaces";
+
 export interface IOperation {
   _id: string;
-  date: DateTimeString;
+  date: Date;
   items: {
-    balance: number;
-    category: number;
-    currency: number;
-    type: number;
+    balance: {
+      currency: Currency;
+      value: number;
+    };
+    category: Category;
   }[];
 }

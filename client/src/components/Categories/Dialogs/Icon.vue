@@ -5,7 +5,7 @@
     :width="320"
     :footer="null"
     :visible="dialog"
-    @cancel="handleDialog({ icon: false }, category)"
+    @cancel="handleDialogs({ icon: false }, category)"
   >
     <a-space class="mb-4">
       <a-avatar :style="{ backgroundColor: `black` }">
@@ -31,11 +31,11 @@ import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 import { CategoryDialog, ICategory } from "@/interfaces";
 
 @Options({
-  name: "IconCategory",
+  name: "CategoryDialogIcon",
 })
-export default class IconCategory extends Vue {
+export default class CategoryDialogIcon extends Vue {
   @Emit()
-  private handleDialog(
+  private handleDialogs(
     dialogs: Partial<Record<CategoryDialog, boolean>>,
     category: ICategory
   ) {

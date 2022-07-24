@@ -23,14 +23,13 @@
 <script lang="ts">
 import { Options, Prop, Vue } from "vue-property-decorator";
 
-import { IAccount, IAccountTotal, ICurrency } from "@/interfaces";
+import { IAccount, IAccountTotal } from "@/interfaces";
 
 @Options({
   name: "AccountTable",
 })
 export default class AccountTable extends Vue {
   @Prop({ required: true }) accounts!: IAccount[];
-  @Prop({ required: true }) currencies!: ICurrency[];
 
   columns = [
     {
@@ -53,9 +52,9 @@ export default class AccountTable extends Vue {
         this.accounts.reduce(
           (acc, account) => ({
             ...acc,
-            [account.currency]:
-              account.currency in acc
-                ? [...acc[account.currency], account]
+            [account.balance.currency]:
+              account.balance.currency in acc
+                ? [...acc[account.balance.currency], account]
                 : [account],
           }),
           {} as any
@@ -70,8 +69,7 @@ export default class AccountTable extends Vue {
               item.balance > 0 ? acc + item.balance : acc,
             0
           ),
-          currency: this.currencies.find(({ value }) => currency == value)
-            ?.label,
+          currency,
           liabilities: -items.reduce(
             (acc: any, item: any) =>
               item.balance < 0 ? acc + item.balance : acc,

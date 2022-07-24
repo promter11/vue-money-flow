@@ -7,4 +7,8 @@ export const getters: GetterTree<AuthState, RootState> = {
   isAuth() {
     return StorageService.getToken();
   },
+
+  user(state) {
+    return state.user;
+  },
 };

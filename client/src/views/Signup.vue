@@ -31,7 +31,7 @@
                 </a-form-item>
                 <a-form-item>
                   <a-input-password
-                    v-model:value="form.password"
+                    v-model:value="form.passwordConfirmation"
                     placeholder="Подтверждение пароля"
                   >
                     <template #prefix>
@@ -75,10 +75,10 @@ import { Options, Vue } from "vue-property-decorator";
   name: "Signup",
 })
 export default class Signup extends Vue {
-  form: Record<"email" | "password" | "password_confirm", string> = {
+  form = {
     email: "",
     password: "",
-    password_confirm: "",
+    passwordConfirmation: "",
   };
 }
 </script>

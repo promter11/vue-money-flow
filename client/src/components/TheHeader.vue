@@ -11,7 +11,7 @@
                   <user-outlined />
                 </template>
               </a-avatar>
-              <span>{{ user.firstName }} {{ user.lastName }}</span>
+              <span>{{ user.email }}</span>
               <down-outlined class="text-xs" />
             </a-space>
           </a-typography-link>

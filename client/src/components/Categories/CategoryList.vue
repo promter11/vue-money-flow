@@ -2,7 +2,7 @@
   <a-button
     type="primary"
     class="block mb-4"
-    @click="handleDialog({ upsert: true }, initialCategory)"
+    @click="handleDialogs({ upsert: true }, initialCategory)"
   >
     <template #icon>
       <plus-outlined />
@@ -44,10 +44,7 @@
               strong
               class="mr-1 text-2xl opacity-50 white--text"
             >
-              {{
-                (currencies.find(({ value }) => value === user.currency) ?? {})
-                  .sign
-              }}
+              {{ category.balance.currency }}
             </a-typography-text>
             <a-typography-text strong class="text-2xl white--text">
               {{ formatNumber(category.balance) }}
@@ -60,14 +57,14 @@
               <a-button
                 ghost
                 class="style-btn"
-                @click="handleDialog({ upsert: true }, category)"
+                @click="handleDialogs({ upsert: true }, category)"
               >
                 Изменить
               </a-button>
               <a-button
                 ghost
                 class="style-btn"
-                @click="handleDialog({ remove: true }, category)"
+                @click="handleDialogs({ delete: true }, category)"
               >
                 Удалить
               </a-button>
@@ -83,7 +80,7 @@
 import { Getter } from "s-vuex-class";
 import { Emit, Options, Prop, Vue } from "vue-property-decorator";
 
-import { CategoryDialog, ICategory, ICurrency, IUser } from "@/interfaces";
+import { CategoryDialog, ICategory, IUser } from "@/interfaces";
 import { formatNumber } from "@/utils/format";
 
 @Options({
@@ -92,10 +89,9 @@ import { formatNumber } from "@/utils/format";
 })
 export default class CategoryList extends Vue {
   @Getter user!: IUser;
-  @Getter currencies!: ICurrency[];
 
   @Emit()
-  private handleDialog(
+  private handleDialogs(
     dialogs: Partial<Record<CategoryDialog, boolean>>,
     category: ICategory
   ) {

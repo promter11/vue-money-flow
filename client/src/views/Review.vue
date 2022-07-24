@@ -15,12 +15,7 @@
     </a-row>
     <a-row>
       <a-col :span="24">
-        <a-statistic
-          title="Баланс"
-          :value="`${
-            (currencies.find(({ value }) => value === user.currency) ?? {}).sign
-          } ${formatNumber(user.balance)}`"
-        />
+        <a-statistic title="Баланс" :value="formatNumber(user.balance)" />
       </a-col>
     </a-row>
     <a-row>
@@ -53,7 +48,7 @@ import { Getter } from "s-vuex-class";
 import { Options, Vue } from "vue-property-decorator";
 
 import ReviewChart from "@/components/ReviewChart.vue";
-import { ICurrency, IUser } from "@/interfaces";
+import { IUser } from "@/interfaces";
 import { formatNumber } from "@/utils/format";
 
 @Options({
@@ -63,7 +58,6 @@ import { formatNumber } from "@/utils/format";
 })
 export default class Review extends Vue {
   @Getter user!: IUser;
-  @Getter currencies!: ICurrency[];
 
   radio = "costs";
 }
