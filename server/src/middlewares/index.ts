@@ -11,11 +11,16 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
       return res.status(401).send("User is not authorized");
     }
 
-    if (
-      !TokenService.validate(accessToken, process.env.ACCESS_TOKEN_SECRET_KEY)
-    ) {
+    const user = TokenService.verify(
+      accessToken,
+      process.env.ACCESS_TOKEN_SECRET_KEY
+    );
+
+    if (!user) {
       return res.status(401).send("User is not authorized");
     }
+
+    req.user = user;
 
     next();
   } catch (error) {

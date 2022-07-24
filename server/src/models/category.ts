@@ -1,10 +1,23 @@
 import { Schema, model } from "mongoose";
 
-const schema = new Schema({
-  balance: {
-    type: Number,
-    required: true,
+const balanceSchema = new Schema(
+  {
+    currency: {
+      type: String,
+      default: "RUB",
+      required: false,
+    },
+    value: {
+      type: Number,
+      default: 0,
+      required: false,
+    },
   },
+  { _id: false }
+);
+
+const schema = new Schema({
+  balance: balanceSchema,
   color: {
     type: String,
     default: "#000000",

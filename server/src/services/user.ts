@@ -4,6 +4,25 @@ import UserModel from "../models/user";
 import TokenService from "../services/token";
 
 class UserService {
+  async me(refreshToken: string) {
+    if (!refreshToken) {
+      throw new Error("User is not authorized");
+    }
+
+    const data = await TokenService.find(refreshToken);
+
+    if (
+      !(await TokenService.verify(
+        data.refreshToken,
+        process.env.REFRESH_TOKEN_SECRET_KEY
+      ))
+    ) {
+      throw new Error("User is not authorized");
+    }
+
+    return UserModel.findOne({ refreshToken }).select(["-__v", "-password"]);
+  }
+
   async login(email: string, password: string) {
     const user = await UserModel.findOne({ email });
 
@@ -37,7 +56,7 @@ class UserService {
     const data = await TokenService.find(refreshToken);
 
     if (
-      !(await TokenService.validate(
+      !(await TokenService.verify(
         data.refreshToken,
         process.env.REFRESH_TOKEN_SECRET_KEY
       ))

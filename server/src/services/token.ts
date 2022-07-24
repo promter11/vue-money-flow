@@ -19,7 +19,7 @@ class TokenService {
     return { accessToken, refreshToken };
   }
 
-  validate(token: string, secretKey: string) {
+  verify(token: string, secretKey: string) {
     try {
       return jwt.verify(token, secretKey);
     } catch (error) {

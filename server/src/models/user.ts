@@ -1,17 +1,24 @@
 import { Schema, model } from "mongoose";
 import uniqueValidator from "mongoose-unique-validator";
 
+const balanceSchema = new Schema(
+  {
+    currency: {
+      type: String,
+      default: "RUB",
+      required: false,
+    },
+    value: {
+      type: Number,
+      default: 0,
+      required: false,
+    },
+  },
+  { _id: false }
+);
+
 const schema = new Schema({
-  balance: {
-    type: Number,
-    default: 0,
-    required: false,
-  },
-  currency: {
-    type: Number,
-    default: 4,
-    required: false,
-  },
+  balance: balanceSchema,
   email: {
     type: String,
     unique: true,

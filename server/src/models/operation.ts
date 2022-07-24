@@ -1,20 +1,25 @@
 import { Schema, model } from "mongoose";
 
+const balanceSchema = new Schema(
+  {
+    currency: {
+      type: String,
+      default: "RUB",
+      required: false,
+    },
+    value: {
+      type: Number,
+      default: 0,
+      required: false,
+    },
+  },
+  { _id: false }
+);
+
 const itemSchema = new Schema(
   {
-    balance: {
-      type: Number,
-      required: true,
-    },
-    category_name: {
-      type: String,
-      required: true,
-    },
-    currency: {
-      type: Number,
-      required: true,
-    },
-    type: {
+    balance: balanceSchema,
+    category: {
       type: Number,
       required: true,
     },

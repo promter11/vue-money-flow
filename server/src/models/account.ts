@@ -1,5 +1,21 @@
 import { Schema, model } from "mongoose";
 
+const balanceSchema = new Schema(
+  {
+    currency: {
+      type: String,
+      default: "RUB",
+      required: false,
+    },
+    value: {
+      type: Number,
+      default: 0,
+      required: false,
+    },
+  },
+  { _id: false }
+);
+
 const iconSchema = new Schema(
   {
     color: {
@@ -17,14 +33,7 @@ const iconSchema = new Schema(
 );
 
 const schema = new Schema({
-  balance: {
-    type: Number,
-    required: true,
-  },
-  currency: {
-    type: Number,
-    required: true,
-  },
+  balance: balanceSchema,
   description: {
     type: String,
     default: "",
